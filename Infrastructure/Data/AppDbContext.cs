@@ -3,24 +3,20 @@ using OfficeAttendanceAPI.Core.Entities;
 
 namespace OfficeAttendanceAPI.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<User>().HasKey(u => u.Id);
+			modelBuilder.Entity<Employee>().HasKey(e => e.Id);
 			modelBuilder.Entity<Attendance>().HasKey(a => a.Id);
 			modelBuilder.Entity<Attendance>()
-				.HasOne<User>()
+				.HasOne<Employee>()
 				.WithMany()
-				.HasForeignKey(a => a.UserId);
+				.HasForeignKey(a => a.EmployeeId);
 		}
     }
 }

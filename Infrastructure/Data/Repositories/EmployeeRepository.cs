@@ -1,19 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using OfficeAttendanceAPI.Core.Entities;
 using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Core.Exceptions;
+using OfficeAttendanceAPI.Core.Exceptions.Employee;
 
 namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository(AppDbContext dbContext) : IEmployeeRepository
     {
-        private readonly AppDbContext _dbContext;
-        private readonly ILogger<EmployeeRepository> _logger;
-        public EmployeeRepository(AppDbContext dbContext, ILogger<EmployeeRepository> logger)
-        {
-            _dbContext = dbContext;
-            _logger = logger;
-        }
+        private readonly AppDbContext _dbContext = dbContext;
+
         public async Task<Employee> CreateEmployee(Employee employee, CancellationToken ct)
         {
             try
@@ -32,11 +27,7 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
         {
             try
             {
-                var employee = await _dbContext.Employees.FindAsync(id , ct);
-                if (employee == null)
-                {
-                    throw new EmployeeNotFoundException($"Failed to get remove with id: {id}. Employee not found.");
-                }
+                var employee = await _dbContext.Employees.FindAsync(id , ct) ?? throw new EmployeeNotFoundException($"Failed to get remove with id: {id}. Employee not found.");
                 _dbContext.Employees.Remove(employee);
                 await _dbContext.SaveChangesAsync(ct);
                 return employee;
