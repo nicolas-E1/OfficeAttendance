@@ -1,0 +1,35 @@
+services:
+  postgres_db:
+    image: postgres:16.3
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: office_attendance_db
+    ports:
+      - "5432:5432"
+    networks:
+      - office_attendance_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: office_attendance_api
+    ports:
+      - "8080:8080"
+    networks:
+      - office_attendance_network
+    depends_on:
+      - postgres_db
+    restart: on-failure
+    environment:
+      - DATABASE_URL=postgres://admin:secret@postgres_db/office_attendance_db
+
+networks:
+  office_attendance_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

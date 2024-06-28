@@ -1,0 +1,41 @@
+# .NET Core
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# NuGet
+*.nuget.props
+*.nuget.targets
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio
+VisualStudio/
+*.userprefs
+*.suo
+*.sln.docstates
+*.sln.ide
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Resharper
+_ReSharper*/
+*.resharper*
+*.DotSettings.user
+
+# Mac
+.DS_Store
