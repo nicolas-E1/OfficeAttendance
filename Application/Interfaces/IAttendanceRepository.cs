@@ -4,10 +4,10 @@ namespace OfficeAttendanceAPI.Application.Interfaces
 {
     public interface IAttendanceRepository
     {
-        Task<IEnumerable<Attendance>?> GetByDay();
-        Task<IEnumerable<Attendance>?> GetByWeek();
-        Task<IEnumerable<Attendance>?> GetById();
-        Task<Attendance> ConfirmAttendance(Attendance attendance);
-        Task<Attendance> DeleteAttendance(int id);
+        Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct);
+        Task<IEnumerable<Employee>> GetByWeek(CancellationToken ct);
+        Task<IEnumerable<Attendance>> GetByUserId(int id, CancellationToken ct);
+        Task<Attendance> ConfirmAttendance(Attendance attendance, CancellationToken ct);
+        Task<Attendance> DeleteAttendance(int id, CancellationToken ct);
     }
 }
