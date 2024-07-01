@@ -5,28 +5,28 @@ using OfficeAttendanceAPI.Core.Exceptions.Attendance;
 
 namespace OfficeAttendanceAPI.Application.Endpoints.Attendance
 {
-    public class GetAttendanceByWeekEndpoint(IAttendanceRepository attendanceRepository) : EndpointWithoutRequest<GetAttendanceByWeekResponse>
+    public class GetAttendanceByDayEndpoint(IAttendanceRepository attendanceRepository) : Endpoint<GetAttendanceByDayRequest, GetAttendanceByDayResponse>
     {
         private readonly IAttendanceRepository _attendanceRepository = attendanceRepository;
 
         public override void Configure()
         {
-            Get("/attendance/week");
+            Get("/attendance/reports/day/{Date}");
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(CancellationToken ct)
+        public override async Task HandleAsync(GetAttendanceByDayRequest req, CancellationToken ct)
         {
             try
             {
-                var attendances = await _attendanceRepository.GetByWeek(ct);
-                var response =new GetAttendanceByWeekResponse{ Employees = attendances };
+                var attendances = await _attendanceRepository.GetByDay(req.Date, ct);
+                var response =new GetAttendanceByDayResponse{ Employees = attendances };
+
                 Response.Employees = attendances;
-                
             }
             catch (Exception ex)
             {
-                throw new AttendanceNotFoundException("Failed to get attendance by week", ex);
+                throw new AttendanceNotFoundException("Failed to get attendance by day", ex);
             }
         }
     }
