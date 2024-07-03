@@ -7,14 +7,12 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
 {
     public class EmployeeRepository(AppDbContext dbContext) : IEmployeeRepository
     {
-        private readonly AppDbContext _dbContext = dbContext;
-
         public async Task<Employee> CreateEmployee(Employee employee, CancellationToken ct)
         {
             try
             {
-                var entity = await _dbContext.Employees.AddAsync(employee, ct);
-                await _dbContext.SaveChangesAsync(ct);
+                var entity = await dbContext.Employees.AddAsync(employee, ct);
+                await dbContext.SaveChangesAsync(ct);
                 return entity.Entity;
             }
             catch (Exception ex)
@@ -27,9 +25,9 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
         {
             try
             {
-                var employee = await _dbContext.Employees.FindAsync(id , ct) ?? throw new EmployeeNotFoundException($"Failed to get remove with id: {id}. Employee not found.");
-                _dbContext.Employees.Remove(employee);
-                await _dbContext.SaveChangesAsync(ct);
+                var employee = await dbContext.Employees.FindAsync(id , ct) ?? throw new EmployeeNotFoundException($"Failed to get remove with id: {id}. Employee not found.");
+                dbContext.Employees.Remove(employee);
+                await dbContext.SaveChangesAsync(ct);
                 return employee;
             }
             catch (Exception ex)
@@ -42,7 +40,7 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
         {
             try
             {
-                return await _dbContext.Employees.FindAsync(id, ct);
+                return await dbContext.Employees.FindAsync(id, ct);
             }
             catch (Exception ex)
             {
@@ -54,7 +52,7 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
         {
             try
             {
-                return await _dbContext.Employees.ToListAsync(ct);
+                return await dbContext.Employees.ToListAsync(ct);
             }
             catch (Exception ex)
             {

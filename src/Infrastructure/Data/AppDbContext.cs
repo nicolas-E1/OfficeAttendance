@@ -6,8 +6,8 @@ namespace OfficeAttendanceAPI.Infrastructure.Data
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
 
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Employee> Employees { get; init; }
+        public DbSet<Attendance> Attendances { get; init; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

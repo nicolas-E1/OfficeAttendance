@@ -8,18 +8,16 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
 {
     public class AttendanceRepository(AppDbContext dbContext) : IAttendanceRepository
     {
-        private readonly AppDbContext _dbContext = dbContext;
-
         public async Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct)
         {
             try 
             {
-                var userIds = await _dbContext.Attendances
+                var userIds = await dbContext.Attendances
                     .Where(a => a.Date == date)
                     .Select(a => a.EmployeeId)
                     .ToListAsync(ct);
 
-                return await _dbContext.Employees
+                return await dbContext.Employees
                     .Where(u => userIds.Contains(u.Id))
                     .ToListAsync(ct);
             }
@@ -36,13 +34,13 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
                 var today = DateTime.Today;
                 var startOfWeek = today.AddDays(-((int)today.DayOfWeek - (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek));
                 var endOfWeek = startOfWeek.AddDays(7);
-                var userIds =  await _dbContext.Attendances
+                var userIds =  await dbContext.Attendances
                     .Where(a => a.Date.ToDateTime(TimeOnly.FromDateTime(today)) >= startOfWeek && a.Date.ToDateTime(TimeOnly.FromDateTime(today)) < endOfWeek)
                     .Select(a => a.EmployeeId)
                     .Distinct()
                     .ToListAsync(ct);
 
-                return await _dbContext.Employees
+                return await dbContext.Employees
                     .Where(u => userIds.Contains(u.Id))
                     .ToListAsync(ct);
             }
@@ -56,7 +54,7 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
         {
             try
             {
-                return await _dbContext.Attendances
+                return await dbContext.Attendances
                     .Where(a => a.EmployeeId == id)
                     .ToListAsync(ct);
             }
@@ -70,14 +68,14 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
         {
             try
             {
-                var existingAttendance = await _dbContext.Attendances
+                var existingAttendance = await dbContext.Attendances
                     .Where(a => a.EmployeeId == attendance.EmployeeId && a.Date == attendance.Date)
                     .FirstOrDefaultAsync(ct);
 
                 if (existingAttendance != null) return existingAttendance;
 
-                _dbContext.Attendances.Add(attendance);
-                await _dbContext.SaveChangesAsync(ct);
+                dbContext.Attendances.Add(attendance);
+                await dbContext.SaveChangesAsync(ct);
 
                 return attendance;
             }
@@ -92,11 +90,11 @@ namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
             try
             {
                 var attendance = 
-                    await _dbContext.Attendances.FindAsync(id) ?? 
+                    await dbContext.Attendances.FindAsync(id) ?? 
                     throw new AttendanceNotFoundException($"Failed to cancel attendance with id: {id}. Attendance not found.");
 
-                _dbContext.Attendances.Remove(attendance);
-                await _dbContext.SaveChangesAsync(ct);
+                dbContext.Attendances.Remove(attendance);
+                await dbContext.SaveChangesAsync(ct);
 
                 return attendance;
             }
