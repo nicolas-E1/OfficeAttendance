@@ -1,10 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OfficeAttendanceAPI.Application.DTOs.Attendance
+namespace OfficeAttendanceAPI.Application.DTOs.Attendance;
+public class GetAttendanceByDayRequest
 {
-    public class GetAttendanceByDayRequest
-    {
-        [Required]
-        public DateOnly Date { get; set; }
-    }
+    [Required]
+    public DateOnly Date { get; set; }
 }

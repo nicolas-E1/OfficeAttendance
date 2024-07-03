@@ -1,9 +1,8 @@
 using OfficeAttendanceAPI.Core.Entities;
 
-namespace OfficeAttendanceAPI.Application.DTOs.Attendance
+namespace OfficeAttendanceAPI.Application.DTOs.Attendance;
+
+public class GetAttendanceByDayResponse
 {
-    public class GetAttendanceByDayResponse
-    {
-        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
-    }
+    public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
 }
