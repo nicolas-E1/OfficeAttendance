@@ -3,12 +3,10 @@ using OfficeAttendanceAPI.Application.DTOs.Attendance;
 using OfficeAttendanceAPI.Application.Interfaces;
 using OfficeAttendanceAPI.Core.Exceptions.Attendance;
 
-namespace OfficeAttendanceAPI.Application.Endpoints.Attendance
+namespace OfficeAttendanceAPI.Application.Endpoints.Employee.Attendance
 {
     public class GetAttendanceByDayEndpoint(IAttendanceRepository attendanceRepository) : Endpoint<GetAttendanceByDayRequest, GetAttendanceByDayResponse>
     {
-        private readonly IAttendanceRepository _attendanceRepository = attendanceRepository;
-
         public override void Configure()
         {
             Get("/attendance/reports/day/{Date}");
@@ -19,7 +17,7 @@ namespace OfficeAttendanceAPI.Application.Endpoints.Attendance
         {
             try
             {
-                var attendances = await _attendanceRepository.GetByDay(req.Date, ct);
+                var attendances = await attendanceRepository.GetByDay(req.Date, ct);
                 var response =new GetAttendanceByDayResponse{ Employees = attendances };
 
                 Response.Employees = attendances;
