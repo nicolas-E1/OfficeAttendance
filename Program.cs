@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddFastEndpoints();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseInMemoryDatabase("OfficeAttendanceDb");
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.SwaggerDocument(o =>
 {
@@ -18,7 +18,7 @@ builder.Services.SwaggerDocument(o =>
     {
         s.Title = "Office Attendance API";
         s.Version = "v1";
-        s.Description = "API for tracking office attendance";
+        s.Description = "API to help you manage your office attendance. It allows you to manage employees and their attendance. It also allows you to know who's going to the office each day.";
     };
 });
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();

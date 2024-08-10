@@ -3,7 +3,7 @@ using OfficeAttendanceAPI.Core.Entities;
 
 namespace OfficeAttendanceAPI.Infrastructure.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : DbContext(options)
 {
 
     public DbSet<Employee> Employees { get; init; }
@@ -17,5 +17,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 			.HasOne<Employee>()
 			.WithMany()
 			.HasForeignKey(a => a.EmployeeId);
+	}
+
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		if (!optionsBuilder.IsConfigured)
+		{
+			var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseNpgsql(connectionString);
+		}
 	}
 }
