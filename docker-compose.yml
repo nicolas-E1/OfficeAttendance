@@ -1,31 +1,43 @@
+name: office-attendance-api
+
 services:
   postgres_db:
     image: postgres:16.3
     container_name: postgres_db
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: office_attendance_db
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: ${POSTGRES_DB:-office_attendance_db}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
     networks:
       - office_attendance_network
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-admin} -d ${POSTGRES_DB:-office_attendance_db}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   app:
-    build: .
+    image: mcr.microsoft.com/dotnet/aspnet:8.0
     container_name: office_attendance_api
-    ports:
-      - "8080:8080"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres_db:
+        condition: service_healthy
     networks:
       - office_attendance_network
-    depends_on:
-      - postgres_db
+    ports:
+      - "5555:80"
     restart: on-failure
     environment:
-      - DATABASE_URL=postgres://admin:secret@postgres_db/office_attendance_db
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres_db;Database=${POSTGRES_DB:-office_attendance_db};Username=${POSTGRES_USER:-admin};Password=${POSTGRES_PASSWORD:-secret}
 
 networks:
   office_attendance_network:
