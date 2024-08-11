@@ -1,11 +1,10 @@
 using FastEndpoints;
 using OfficeAttendanceAPI.src.Application.DTOs.Attendance;
-using OfficeAttendanceAPI.src.Core.Interfaces;
-using OfficeAttendanceAPI.src.Core.Exceptions.Attendance;
+using OfficeAttendanceAPI.src.Application.UseCases.Attendance;
 
 namespace OfficeAttendanceAPI.src.Application.Endpoints.Employee.Attendance;
 
-public class GetAttendanceByDayEndpoint(IAttendanceRepository attendanceRepository) : Endpoint<GetAttendanceByDayRequest, GetAttendanceByDayResponse>
+public class GetAttendanceByDayEndpoint(GetAttendanceByDayUseCase getAttendanceByDayUseCase) : Endpoint<GetByDayRequest, GetByDayResponse>
 {
     public override void Configure()
     {
@@ -13,18 +12,9 @@ public class GetAttendanceByDayEndpoint(IAttendanceRepository attendanceReposito
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(GetAttendanceByDayRequest req, CancellationToken ct)
+    public override async Task HandleAsync(GetByDayRequest request, CancellationToken ct)
     {
-        try
-        {
-            var attendances = await attendanceRepository.GetByDay(req.Date, ct);
-            var response =new GetAttendanceByDayResponse{ Employees = attendances };
-
-            Response.Employees = attendances;
-        }
-        catch (Exception ex)
-        {
-            throw new AttendanceNotFoundException("Failed to get attendance by day", ex);
-        }
+        var response = await getAttendanceByDayUseCase.ExecuteAsync(request, ct);
+        await SendAsync(response, cancellation: ct);
     }
 }
