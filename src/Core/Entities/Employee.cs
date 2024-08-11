@@ -1,10 +1,9 @@
-namespace OfficeAttendanceAPI.Core.Entities
+namespace OfficeAttendanceAPI.src.Core.Entities;
+
+public class Employee
 {
-    public class Employee
-    {
-        public int Id { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public string FullName => $"{FirstName} {LastName}";
-    }
+    public int Id { get; init; }
+    public required string FirstName { get; init; }
+    public required string LastName { get; init; }
+    public string FullName => $"{FirstName} {LastName}";
 }

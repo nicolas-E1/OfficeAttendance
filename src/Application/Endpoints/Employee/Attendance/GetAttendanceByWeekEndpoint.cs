@@ -1,33 +1,20 @@
 using FastEndpoints;
-using OfficeAttendanceAPI.Application.DTOs.Attendance;
-using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Core.Exceptions.Attendance;
+using OfficeAttendanceAPI.src.Application.DTOs.Attendance;
+using OfficeAttendanceAPI.src.Application.UseCases.Attendance;
 
-namespace OfficeAttendanceAPI.Application.Endpoints.Attendance
+namespace OfficeAttendanceAPI.src.Application.Endpoints.Employee.Attendance;
+
+public class GetAttendanceByWeekEndpoint(GetAttendanceByWeekUseCase getAttendanceByWeekUseCase) : EndpointWithoutRequest<GetByWeekResponse>
 {
-    public class GetAttendanceByWeekEndpoint(IAttendanceRepository attendanceRepository) : EndpointWithoutRequest<GetAttendanceByWeekResponse>
+    public override void Configure()
     {
-        private readonly IAttendanceRepository _attendanceRepository = attendanceRepository;
+        Get("/attendance/reports/week");
+        AllowAnonymous();
+    }
 
-        public override void Configure()
-        {
-            Get("/attendance/reports/week");
-            AllowAnonymous();
-        }
-
-        public override async Task HandleAsync(CancellationToken ct)
-        {
-            try
-            {
-                var attendances = await _attendanceRepository.GetByWeek(ct);
-                var response =new GetAttendanceByWeekResponse{ Employees = attendances };
-                Response.Employees = attendances;
-                
-            }
-            catch (Exception ex)
-            {
-                throw new AttendanceNotFoundException("Failed to get attendance by week", ex);
-            }
-        }
+    public override async Task HandleAsync(CancellationToken ct)
+    {
+        var response = await getAttendanceByWeekUseCase.ExecuteAsync(ct);
+        await SendAsync(response, cancellation: ct);
     }
 }

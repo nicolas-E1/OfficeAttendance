@@ -1,9 +1,8 @@
-namespace OfficeAttendanceAPI.Core.Entities
+namespace OfficeAttendanceAPI.src.Core.Entities;
+
+public class Attendance
 {
-    public class Attendance
-    {
-        public int Id { get; set; }
-        public required int EmployeeId { get; set; }
-        public required DateOnly Date { get; set; }
-    }
+    public int Id { get; init; }
+    public required int EmployeeId { get; init; }
+    public required DateOnly Date { get; init; }
 }

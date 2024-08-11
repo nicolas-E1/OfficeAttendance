@@ -1,13 +1,4 @@
-namespace OfficeAttendanceAPI.Core.Exceptions.Attendance
-{
-    public class AttendanceConfirmException : Exception
-    {
-        public AttendanceConfirmException(string message) : base(message)
-        {
-        }
+namespace OfficeAttendanceAPI.src.Core.Exceptions.Attendance;
 
-        public AttendanceConfirmException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-    }
-}
+public class AttendanceConfirmException(string message, Exception innerException)
+    : Exception(message, innerException);

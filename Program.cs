@@ -1,34 +1,36 @@
 using FastEndpoints;
+using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
-using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Infrastructure.Data;
-using OfficeAttendanceAPI.Infrastructure.Data.Repositories;
+using OfficeAttendanceAPI.src.Application.UseCases.Attendance;
+using OfficeAttendanceAPI.src.Core.Interfaces;
+using OfficeAttendanceAPI.src.Infrastructure.Data;
+using OfficeAttendanceAPI.src.Infrastructure.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+
+builder.Services.AddScoped<GetAttendanceByDayUseCase>();
+builder.Services.AddScoped<GetAttendanceByWeekUseCase>();
+
+builder.Services.AddFastEndpoints();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
-builder.Services.AddControllers();
-builder.Services.AddFastEndpoints();
+builder.Services.SwaggerDocument(o =>
+{
+    o.DocumentSettings = s =>
+    {
+        s.Title = "Office Attendance API";
+        s.Version = "v1";
+        s.Description = "API to help you manage your office attendance. It allows you to manage employees and their attendance. It also allows you to know who's going to the office each day.";
+    };
+});
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseFastEndpoints();
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseFastEndpoints().UseSwaggerGen();
 
 app.Run();

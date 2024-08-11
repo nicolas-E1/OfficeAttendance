@@ -1,9 +1,8 @@
-using OfficeAttendanceAPI.Core.Entities;
+using OfficeAttendanceAPI.src.Core.Entities;
 
-namespace OfficeAttendanceAPI.Application.DTOs.Attendance
+namespace OfficeAttendanceAPI.src.Application.DTOs.Attendance;
+
+public class GetByWeekResponse
 {
-    public class GetAttendanceByWeekResponse
-    {
-        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
-    }
+    public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
 }

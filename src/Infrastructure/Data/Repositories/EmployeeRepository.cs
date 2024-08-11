@@ -1,65 +1,62 @@
 using Microsoft.EntityFrameworkCore;
-using OfficeAttendanceAPI.Core.Entities;
-using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Core.Exceptions.Employee;
+using OfficeAttendanceAPI.src.Core.Entities;
+using OfficeAttendanceAPI.src.Core.Interfaces;
+using OfficeAttendanceAPI.src.Core.Exceptions.Employee;
 
-namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories
+namespace OfficeAttendanceAPI.src.Infrastructure.Data.Repositories;
+
+public class EmployeeRepository(AppDbContext dbContext) : IEmployeeRepository
 {
-    public class EmployeeRepository(AppDbContext dbContext) : IEmployeeRepository
+    public async Task<Employee> CreateEmployee(Employee employee, CancellationToken ct)
     {
-        private readonly AppDbContext _dbContext = dbContext;
-
-        public async Task<Employee> CreateEmployee(Employee employee, CancellationToken ct)
+        try
         {
-            try
-            {
-                var entity = await _dbContext.Employees.AddAsync(employee, ct);
-                await _dbContext.SaveChangesAsync(ct);
-                return entity.Entity;
-            }
-            catch (Exception ex)
-            {
-                throw new EmployeeCreationException("Failed to create employees", ex);
-            }
+            var entity = await dbContext.Employees.AddAsync(employee, ct);
+            await dbContext.SaveChangesAsync(ct);
+            return entity.Entity;
         }
-
-        public async Task<Employee> RemoveEmployee(int id, CancellationToken ct)
+        catch (Exception ex)
         {
-            try
-            {
-                var employee = await _dbContext.Employees.FindAsync(id , ct) ?? throw new EmployeeNotFoundException($"Failed to get remove with id: {id}. Employee not found.");
-                _dbContext.Employees.Remove(employee);
-                await _dbContext.SaveChangesAsync(ct);
-                return employee;
-            }
-            catch (Exception ex)
-            {
-                throw new EmployeeDeletionException($"Failed to get remove with id: {id}", ex);
-            }
+            throw new EmployeeCreationException("Failed to create employees", ex);
         }
+    }
 
-        public async Task<Employee?> GetEmployeeById(int id, CancellationToken ct)
+    public async Task<Employee> RemoveEmployee(int id, CancellationToken ct)
+    {
+        try
         {
-            try
-            {
-                return await _dbContext.Employees.FindAsync(id, ct);
-            }
-            catch (Exception ex)
-            {
-                throw new EmployeeNotFoundException(id, ex);
-            }
+            var employee = await dbContext.Employees.FindAsync(id , ct) ?? throw new EmployeeNotFoundException($"Failed to get remove with id: {id}. Employee not found.");
+            dbContext.Employees.Remove(employee);
+            await dbContext.SaveChangesAsync(ct);
+            return employee;
         }
-
-        public async Task<IEnumerable<Employee?>> GetEmployees(CancellationToken ct)
+        catch (Exception ex)
         {
-            try
-            {
-                return await _dbContext.Employees.ToListAsync(ct);
-            }
-            catch (Exception ex)
-            {
-                throw new EmployeeNotFoundException("Failed to get employees", ex);
-            }
+            throw new EmployeeDeletionException($"Failed to get remove with id: {id}", ex);
+        }
+    }
+
+    public async Task<Employee?> GetEmployeeById(int id, CancellationToken ct)
+    {
+        try
+        {
+            return await dbContext.Employees.FindAsync(id, ct);
+        }
+        catch (Exception ex)
+        {
+            throw new EmployeeNotFoundException(id, ex);
+        }
+    }
+
+    public async Task<IEnumerable<Employee?>> GetEmployees(CancellationToken ct)
+    {
+        try
+        {
+            return await dbContext.Employees.ToListAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            throw new EmployeeNotFoundException("Failed to get employees", ex);
         }
     }
 }
