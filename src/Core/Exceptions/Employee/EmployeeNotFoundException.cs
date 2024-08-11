@@ -1,6 +1,6 @@
 using System;
 
-namespace OfficeAttendanceAPI.Core.Exceptions.Employee;
+namespace OfficeAttendanceAPI.src.Core.Exceptions.Employee;
 
 public class EmployeeNotFoundException : Exception
 {

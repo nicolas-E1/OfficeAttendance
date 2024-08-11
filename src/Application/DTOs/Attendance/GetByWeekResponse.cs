@@ -1,6 +1,6 @@
-using OfficeAttendanceAPI.Core.Entities;
+using OfficeAttendanceAPI.src.Core.Entities;
 
-namespace OfficeAttendanceAPI.Application.DTOs.Attendance;
+namespace OfficeAttendanceAPI.src.Application.DTOs.Attendance;
 
 public class GetAttendanceByWeekResponse
 {

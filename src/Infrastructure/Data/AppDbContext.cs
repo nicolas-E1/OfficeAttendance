@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using OfficeAttendanceAPI.Core.Entities;
+using OfficeAttendanceAPI.src.Core.Entities;
 
-namespace OfficeAttendanceAPI.Infrastructure.Data;
+namespace OfficeAttendanceAPI.src.Infrastructure.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : DbContext(options)
 {

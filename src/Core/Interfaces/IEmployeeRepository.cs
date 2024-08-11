@@ -1,6 +1,6 @@
-using OfficeAttendanceAPI.Core.Entities;
+using OfficeAttendanceAPI.src.Core.Entities;
 
-namespace OfficeAttendanceAPI.Application.Interfaces;
+namespace OfficeAttendanceAPI.src.Core.Interfaces;
 
 public interface IEmployeeRepository
 {

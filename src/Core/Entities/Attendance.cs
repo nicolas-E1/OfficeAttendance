@@ -1,4 +1,4 @@
-namespace OfficeAttendanceAPI.Core.Entities;
+namespace OfficeAttendanceAPI.src.Core.Entities;
 
 public class Attendance
 {

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using OfficeAttendanceAPI.Core.Entities;
-using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Core.Exceptions.Employee;
+using OfficeAttendanceAPI.src.Core.Entities;
+using OfficeAttendanceAPI.src.Core.Interfaces;
+using OfficeAttendanceAPI.src.Core.Exceptions.Employee;
 
-namespace OfficeAttendanceAPI.Infrastructure.Data.Repositories;
+namespace OfficeAttendanceAPI.src.Infrastructure.Data.Repositories;
 
 public class EmployeeRepository(AppDbContext dbContext) : IEmployeeRepository
 {

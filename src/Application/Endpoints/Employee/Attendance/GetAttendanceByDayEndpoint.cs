@@ -1,9 +1,9 @@
 using FastEndpoints;
-using OfficeAttendanceAPI.Application.DTOs.Attendance;
-using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Core.Exceptions.Attendance;
+using OfficeAttendanceAPI.src.Application.DTOs.Attendance;
+using OfficeAttendanceAPI.src.Core.Interfaces;
+using OfficeAttendanceAPI.src.Core.Exceptions.Attendance;
 
-namespace OfficeAttendanceAPI.Application.Endpoints.Employee.Attendance;
+namespace OfficeAttendanceAPI.src.Application.Endpoints.Employee.Attendance;
 
 public class GetAttendanceByDayEndpoint(IAttendanceRepository attendanceRepository) : Endpoint<GetAttendanceByDayRequest, GetAttendanceByDayResponse>
 {
