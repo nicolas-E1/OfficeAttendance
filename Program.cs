@@ -1,11 +1,18 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
-using OfficeAttendanceAPI.Application.Interfaces;
-using OfficeAttendanceAPI.Infrastructure.Data;
-using OfficeAttendanceAPI.Infrastructure.Data.Repositories;
+using OfficeAttendanceAPI.src.Application.UseCases.Attendance;
+using OfficeAttendanceAPI.src.Core.Interfaces;
+using OfficeAttendanceAPI.src.Infrastructure.Data;
+using OfficeAttendanceAPI.src.Infrastructure.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+
+builder.Services.AddScoped<GetAttendanceByDayUseCase>();
+builder.Services.AddScoped<GetAttendanceByWeekUseCase>();
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -21,8 +28,6 @@ builder.Services.SwaggerDocument(o =>
         s.Description = "API to help you manage your office attendance. It allows you to manage employees and their attendance. It also allows you to know who's going to the office each day.";
     };
 });
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 
 var app = builder.Build();
 
