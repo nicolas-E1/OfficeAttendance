@@ -1,6 +1,0 @@
-@OfficeAttendanceAPI_HostAddress = http://localhost:5259
-
-GET {{OfficeAttendanceAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
