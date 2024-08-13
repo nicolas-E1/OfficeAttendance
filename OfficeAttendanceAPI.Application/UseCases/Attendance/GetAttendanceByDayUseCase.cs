@@ -7,6 +7,8 @@ public class GetAttendanceByDayUseCase(IAttendanceRepository attendanceRepositor
 {
     public async Task<GetByDayResponse> ExecuteAsync(GetByDayRequest request, CancellationToken ct)
     {
+        ct.ThrowIfCancellationRequested();
+        
         try
         {
             var attendanceRecords = await attendanceRepository.GetByDay(request.Date, ct);
