@@ -6,18 +6,30 @@ namespace OfficeAttendanceAPI.Tests.Fakes
 {
     public class FakeAttendanceRepository : IAttendanceRepository
     {
-        private readonly Dictionary<int, List<Employee>> _attendance = [];
+        private const int defaultWeek = 1;
+        private readonly Dictionary<object, List<Employee>> _attendance = [];
         public bool WasGetByWeekCalled { get; private set; } = false;
+        public bool WasGetByDayCalled { get; private set; } = false;
         public bool ShouldThrowException { get; set; } = false;
-        private int _currentWeek = 1;
+        private int _currentWeek = defaultWeek;
 
-        public void SetAttendance(IEnumerable<Employee>? attendance) => _attendance[_currentWeek] =  attendance?.ToList() ?? [];
+        public void SetAttendance(IEnumerable<Employee>? attendance, int key = defaultWeek) => _attendance[key] =  attendance?.ToList() ?? [];
+        public void SetAttendance(IEnumerable<Employee>? attendance, DateOnly key) => _attendance[key] =  attendance?.ToList() ?? [];
+
 
         public void SetAttendanceForWeek(IEnumerable<Employee> attendance, int week) => _attendance[week] =  attendance?.ToList() ?? [];
 
         public void SetCurrentWeek(int week) => _currentWeek = week;
 
-        public Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct) => throw new NotImplementedException();
+        public Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct)
+        {
+            WasGetByDayCalled = true;
+            if (ShouldThrowException) {
+                throw new AttendanceNotFoundException("Failed to get attendance by day");
+            }
+            _attendance.TryGetValue(date, out List<Employee>? attendance);
+            return Task.FromResult<IEnumerable<Employee>>(attendance ?? []);
+        }
 
         public Task<IEnumerable<Employee>> GetByWeek(CancellationToken cancellationToken)
         {
