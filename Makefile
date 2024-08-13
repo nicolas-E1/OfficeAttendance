@@ -39,3 +39,8 @@ restart: down up
 clean:
 	docker-compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) down -v --rmi all --remove-orphans
 	docker system prune -f
+	
+# Run tests with coverage
+.PHONY: test
+test:
+	dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/

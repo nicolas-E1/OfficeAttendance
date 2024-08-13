@@ -6,6 +6,7 @@ COPY OfficeAttendance.sln .
 COPY ["OfficeAttendanceAPI.Core/OfficeAttendanceAPI.Core.csproj", "OfficeAttendanceAPI.Core/"]
 COPY ["OfficeAttendanceAPI.Application/OfficeAttendanceAPI.Application.csproj", "OfficeAttendanceAPI.Application/"]
 COPY ["OfficeAttendanceAPI.Infrastructure/OfficeAttendanceAPI.Infrastructure.csproj", "OfficeAttendanceAPI.Infrastructure/"]
+COPY ["OfficeAttendanceAPI.Tests/OfficeAttendanceAPI.Tests.csproj", "OfficeAttendanceAPI.Tests/"]
 COPY ["OfficeAttendanceAPI/OfficeAttendanceAPI.csproj", "OfficeAttendanceAPI/"]
 WORKDIR /app
 
