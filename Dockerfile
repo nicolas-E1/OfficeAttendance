@@ -3,11 +3,11 @@ WORKDIR /app
 
 # Copy only the necessary files for dotnet restore
 COPY OfficeAttendance.sln .
-COPY ["OfficeAttendanceAPI.Core/OfficeAttendanceAPI.Core.csproj", "OfficeAttendanceAPI.Core/"]
-COPY ["OfficeAttendanceAPI.Application/OfficeAttendanceAPI.Application.csproj", "OfficeAttendanceAPI.Application/"]
-COPY ["OfficeAttendanceAPI.Infrastructure/OfficeAttendanceAPI.Infrastructure.csproj", "OfficeAttendanceAPI.Infrastructure/"]
-COPY ["OfficeAttendanceAPI.Tests/OfficeAttendanceAPI.Tests.csproj", "OfficeAttendanceAPI.Tests/"]
-COPY ["OfficeAttendanceAPI/OfficeAttendanceAPI.csproj", "OfficeAttendanceAPI/"]
+COPY ["OfficeAttendance.Core/OfficeAttendance.Core.csproj", "OfficeAttendance.Core/"]
+COPY ["OfficeAttendance.Application/OfficeAttendance.Application.csproj", "OfficeAttendance.Application/"]
+COPY ["OfficeAttendance.Infrastructure/OfficeAttendance.Infrastructure.csproj", "OfficeAttendance.Infrastructure/"]
+COPY ["OfficeAttendance.Tests/OfficeAttendance.Tests.csproj", "OfficeAttendance.Tests/"]
+COPY ["OfficeAttendance.WebAPI/OfficeAttendance.WebAPI.csproj", "OfficeAttendance.WebAPI/"]
 WORKDIR /app
 
 RUN dotnet restore OfficeAttendance.sln
@@ -24,4 +24,4 @@ WORKDIR /app
 COPY --from=build /app/out .
 
 EXPOSE 80
-ENTRYPOINT ["dotnet", "OfficeAttendanceAPI.dll"]
+ENTRYPOINT ["dotnet", "OfficeAttendance.WebAPI.dll"]
