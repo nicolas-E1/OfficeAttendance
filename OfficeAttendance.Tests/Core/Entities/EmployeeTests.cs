@@ -1,12 +1,10 @@
-using OfficeAttendanceAPI.Core.Entities;
+﻿using OfficeAttendance.Core.Entities;
 
-namespace OfficeAttendanceAPI.Tests.Core.Entities;
+namespace OfficeAttendance.Tests.Core.Entities;
 
-public class EmployeeTests
-{
+public class EmployeeTests {
     [Fact]
-    public void Employee_ShouldInitializeCorrectly()
-    {
+    public void Employee_ShouldInitializeCorrectly() {
         // Arrange & Act
         var employee = new Employee { Id = 1, FirstName = "Dante", LastName = "Alighieri" };
 
@@ -17,8 +15,7 @@ public class EmployeeTests
     }
 
     [Fact]
-    public void GetFullName_ShouldReturnCorrectFullName()
-    {
+    public void GetFullName_ShouldReturnCorrectFullName() {
         // Arrange
         var employee = new Employee { FirstName = "Dante", LastName = "Alighieri" };
 

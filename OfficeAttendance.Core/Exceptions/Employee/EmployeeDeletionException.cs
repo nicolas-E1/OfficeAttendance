@@ -1,12 +1,9 @@
-namespace OfficeAttendanceAPI.Core.Exceptions.Employee;
+﻿namespace OfficeAttendance.Core.Exceptions.Employee;
 
-public class EmployeeDeletionException : Exception
-{
-    public EmployeeDeletionException(string message) : base(message)
-    {
+public class EmployeeDeletionException : Exception {
+    public EmployeeDeletionException(string message) : base(message) {
     }
 
-    public EmployeeDeletionException(string message, Exception innerException) : base(message, innerException)
-    {
+    public EmployeeDeletionException(string message, Exception innerException) : base(message, innerException) {
     }
 }

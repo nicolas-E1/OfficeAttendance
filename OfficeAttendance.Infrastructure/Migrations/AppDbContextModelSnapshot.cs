@@ -4,12 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using OfficeAttendanceAPI.Infrastructure.Data;
 
 #nullable disable
 
-namespace OfficeAttendanceAPI.Infrastructure.Migrations
-{
+namespace OfficeAttendance.Infrastructure.Migrations {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {

@@ -1,9 +1,8 @@
-using OfficeAttendanceAPI.Core.Entities;
+﻿using OfficeAttendance.Core.Entities;
 
-namespace OfficeAttendanceAPI.Core.Interfaces;
+namespace OfficeAttendance.Core.Interfaces;
 
-public interface IEmployeeRepository
-{
+public interface IEmployeeRepository {
     Task<IEnumerable<Employee?>> GetEmployees(CancellationToken ct);
     Task<Employee?> GetEmployeeById(int id, CancellationToken ct);
     Task<Employee> CreateEmployee(Employee employee, CancellationToken ct);

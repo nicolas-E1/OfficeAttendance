@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using OfficeAttendanceAPI.Infrastructure.Data;
 
 #nullable disable
 
-namespace OfficeAttendanceAPI.Infrastructure.Migrations
-{
+namespace OfficeAttendance.Infrastructure.Migrations {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240812213016_InitialCreate")]
     partial class InitialCreate
