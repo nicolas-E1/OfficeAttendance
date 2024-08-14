@@ -1,20 +1,18 @@
-﻿using OfficeAttendanceAPI.Application.DTOs.Attendance;
-using OfficeAttendanceAPI.Application.UseCases.Attendance;
-using OfficeAttendanceAPI.Core.Entities;
-using OfficeAttendanceAPI.Core.Exceptions.Attendance;
-using OfficeAttendanceAPI.Tests.Fakes;
+﻿using OfficeAttendance.Application.DTOs.Attendance;
+using OfficeAttendance.Application.UseCases.Attendance;
+using OfficeAttendance.Core.Entities;
+using OfficeAttendance.Core.Exceptions.Attendance;
+using OfficeAttendance.Tests.Application.Fakes;
 
-namespace OfficeAttendanceAPI.Tests.Application.UseCases.Attendance;
+namespace OfficeAttendance.Tests.Application.UseCases.Attendance;
 
-public class GetAttendanceByDayUseCaseTests
-{
+public class GetAttendanceByDayUseCaseTests {
     private readonly FakeAttendanceRepository _attendanceRepository;
     private readonly GetAttendanceByDayUseCase _useCase;
     private readonly CancellationToken _cancellationToken;
     private readonly GetByDayRequest _request = new() { Date = new DateOnly(2024, 1, 1) };
 
-    public GetAttendanceByDayUseCaseTests()
-    {
+    public GetAttendanceByDayUseCaseTests() {
         _attendanceRepository = new FakeAttendanceRepository();
         _useCase = new GetAttendanceByDayUseCase(_attendanceRepository);
         _cancellationToken = new CancellationToken();
@@ -22,8 +20,7 @@ public class GetAttendanceByDayUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByDayUseCase_ShouldReturnAttendance_WhenValidRequestIsPassed()
-    {
+    public async Task GetAttendanceByDayUseCase_ShouldReturnAttendance_WhenValidRequestIsPassed() {
         // Arrange
         var mockAttendance = new List<Employee>
         {
@@ -41,8 +38,7 @@ public class GetAttendanceByDayUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByDayUseCase_ShouldReturnEmptyAttendance_WhenNoEmployeesAttended()
-    {
+    public async Task GetAttendanceByDayUseCase_ShouldReturnEmptyAttendance_WhenNoEmployeesAttended() {
         // Arrange
         _attendanceRepository.SetAttendance(new List<Employee>(), _request.Date);
 
@@ -56,8 +52,7 @@ public class GetAttendanceByDayUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByDayUseCase_ShouldThrowException_WhenRepositoryThrowsException()
-    {
+    public async Task GetAttendanceByDayUseCase_ShouldThrowException_WhenRepositoryThrowsException() {
         // Arrange
         _attendanceRepository.ShouldThrowException = true;
 
@@ -70,8 +65,7 @@ public class GetAttendanceByDayUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByDayUseCase_ShouldRespectCancellationToken_WhenRepositoryReturnsNull()
-    {
+    public async Task GetAttendanceByDayUseCase_ShouldRespectCancellationToken_WhenRepositoryReturnsNull() {
         // Arrange
         var cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
@@ -85,8 +79,7 @@ public class GetAttendanceByDayUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByDayUseCase_ShouldReturnCorrectAttendance_WhenDifferentWeeksAreQueried()
-    {
+    public async Task GetAttendanceByDayUseCase_ShouldReturnCorrectAttendance_WhenDifferentWeeksAreQueried() {
         // Arrange
         var day1Attendance = new List<Employee>
         {
@@ -103,11 +96,11 @@ public class GetAttendanceByDayUseCaseTests
 
         // Act
         GetByDayResponse resultDay1 = await _useCase.ExecuteAsync(_request, _cancellationToken);
-        GetByDayResponse resultDay2 = await _useCase.ExecuteAsync(new GetByDayRequest{ Date = _request.Date.AddDays(1) }, _cancellationToken);
+        GetByDayResponse resultDay2 = await _useCase.ExecuteAsync(new GetByDayRequest { Date = _request.Date.AddDays(1) }, _cancellationToken);
 
         // Assert
         Assert.True(_attendanceRepository.WasGetByDayCalled);
-        
+
         Assert.NotNull(resultDay1);
         Assert.Equal(day1Attendance.Count(), resultDay1.Employees.Count());
 
@@ -116,8 +109,7 @@ public class GetAttendanceByDayUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByDayUseCase_ShouldReturnEmpty_WhenRepositoryReturnsNull()
-    {
+    public async Task GetAttendanceByDayUseCase_ShouldReturnEmpty_WhenRepositoryReturnsNull() {
         // Arrange
         _attendanceRepository.SetAttendance(null);
 

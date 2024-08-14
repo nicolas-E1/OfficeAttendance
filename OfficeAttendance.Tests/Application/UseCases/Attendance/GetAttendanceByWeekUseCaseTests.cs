@@ -1,27 +1,24 @@
-﻿using OfficeAttendanceAPI.Application.DTOs.Attendance;
-using OfficeAttendanceAPI.Application.UseCases.Attendance;
-using OfficeAttendanceAPI.Core.Entities;
-using OfficeAttendanceAPI.Core.Exceptions.Attendance;
-using OfficeAttendanceAPI.Tests.Fakes;
+﻿using OfficeAttendance.Application.DTOs.Attendance;
+using OfficeAttendance.Application.UseCases.Attendance;
+using OfficeAttendance.Core.Entities;
+using OfficeAttendance.Core.Exceptions.Attendance;
+using OfficeAttendance.Tests.Application.Fakes;
 
-namespace OfficeAttendanceAPI.Tests.Application.UseCases.Attendance;
+namespace OfficeAttendance.Tests.Application.UseCases.Attendance;
 
-public class GetAttendanceByWeekUseCaseTests
-{
+public class GetAttendanceByWeekUseCaseTests {
     private readonly FakeAttendanceRepository _attendanceRepository;
     private readonly GetAttendanceByWeekUseCase _useCase;
     private readonly CancellationToken _cancellationToken;
 
-    public GetAttendanceByWeekUseCaseTests()
-    {
+    public GetAttendanceByWeekUseCaseTests() {
         _attendanceRepository = new FakeAttendanceRepository();
         _useCase = new GetAttendanceByWeekUseCase(_attendanceRepository);
         _cancellationToken = new CancellationToken();
     }
 
     [Fact]
-    public async Task GetAttendanceByWeekUseCase_ShouldReturnAttendance_WhenValidRequestIsPassed()
-    {
+    public async Task GetAttendanceByWeekUseCase_ShouldReturnAttendance_WhenValidRequestIsPassed() {
         // Arrange
         var mockAttendance = new List<Employee>
         {
@@ -39,8 +36,7 @@ public class GetAttendanceByWeekUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByWeekUseCase_ShouldReturnEmptyAttendance_WhenNoEmployeesAttended()
-    {
+    public async Task GetAttendanceByWeekUseCase_ShouldReturnEmptyAttendance_WhenNoEmployeesAttended() {
         // Arrange
         _attendanceRepository.SetAttendance(new List<Employee>());
 
@@ -54,8 +50,7 @@ public class GetAttendanceByWeekUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByWeekUseCase_ShouldThrowException_WhenRepositoryThrowsException()
-    {
+    public async Task GetAttendanceByWeekUseCase_ShouldThrowException_WhenRepositoryThrowsException() {
         // Arrange
         _attendanceRepository.ShouldThrowException = true;
 
@@ -68,8 +63,7 @@ public class GetAttendanceByWeekUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByWeekUseCase_ShouldRespectCancellationToken_WhenRepositoryReturnsNull()
-    {
+    public async Task GetAttendanceByWeekUseCase_ShouldRespectCancellationToken_WhenRepositoryReturnsNull() {
         // Arrange
         var cancellationTokenSource = new CancellationTokenSource();
         cancellationTokenSource.Cancel();
@@ -83,8 +77,7 @@ public class GetAttendanceByWeekUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByWeekUseCase_ShouldReturnCorrectAttendance_WhenDifferentWeeksAreQueried()
-    {
+    public async Task GetAttendanceByWeekUseCase_ShouldReturnCorrectAttendance_WhenDifferentWeeksAreQueried() {
         // Arrange
         var week1Attendance = new List<Employee>
         {
@@ -113,8 +106,7 @@ public class GetAttendanceByWeekUseCaseTests
     }
 
     [Fact]
-    public async Task GetAttendanceByWeekUseCase_ShouldReturnEmpty_WhenRepositoryReturnsNull()
-    {
+    public async Task GetAttendanceByWeekUseCase_ShouldReturnEmpty_WhenRepositoryReturnsNull() {
         // Arrange
         _attendanceRepository.SetAttendance(null);
 

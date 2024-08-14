@@ -1,11 +1,9 @@
-using OfficeAttendanceAPI.Core.Entities;
-using OfficeAttendanceAPI.Core.Exceptions.Attendance;
-using OfficeAttendanceAPI.Core.Interfaces;
+﻿using OfficeAttendance.Core.Entities;
+using OfficeAttendance.Core.Interfaces;
+using OfficeAttendance.Core.Exceptions.Attendance;
 
-namespace OfficeAttendanceAPI.Tests.Fakes
-{
-    public class FakeAttendanceRepository : IAttendanceRepository
-    {
+namespace OfficeAttendance.Tests.Application.Fakes {
+    public class FakeAttendanceRepository : IAttendanceRepository {
         private const int defaultWeek = 1;
         private readonly Dictionary<object, List<Employee>> _attendance = [];
         public bool WasGetByWeekCalled { get; private set; } = false;
@@ -13,16 +11,15 @@ namespace OfficeAttendanceAPI.Tests.Fakes
         public bool ShouldThrowException { get; set; } = false;
         private int _currentWeek = defaultWeek;
 
-        public void SetAttendance(IEnumerable<Employee>? attendance, int key = defaultWeek) => _attendance[key] =  attendance?.ToList() ?? [];
-        public void SetAttendance(IEnumerable<Employee>? attendance, DateOnly key) => _attendance[key] =  attendance?.ToList() ?? [];
+        public void SetAttendance(IEnumerable<Employee>? attendance, int key = defaultWeek) => _attendance[key] = attendance?.ToList() ?? [];
+        public void SetAttendance(IEnumerable<Employee>? attendance, DateOnly key) => _attendance[key] = attendance?.ToList() ?? [];
 
 
-        public void SetAttendanceForWeek(IEnumerable<Employee> attendance, int week) => _attendance[week] =  attendance?.ToList() ?? [];
+        public void SetAttendanceForWeek(IEnumerable<Employee> attendance, int week) => _attendance[week] = attendance?.ToList() ?? [];
 
         public void SetCurrentWeek(int week) => _currentWeek = week;
 
-        public Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct)
-        {
+        public Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct) {
             WasGetByDayCalled = true;
             if (ShouldThrowException) {
                 throw new AttendanceNotFoundException("Failed to get attendance by day");
@@ -31,8 +28,7 @@ namespace OfficeAttendanceAPI.Tests.Fakes
             return Task.FromResult<IEnumerable<Employee>>(attendance ?? []);
         }
 
-        public Task<IEnumerable<Employee>> GetByWeek(CancellationToken cancellationToken)
-        {
+        public Task<IEnumerable<Employee>> GetByWeek(CancellationToken cancellationToken) {
             WasGetByWeekCalled = true;
             if (ShouldThrowException) {
                 throw new AttendanceNotFoundException("Failed to get attendance by week");
