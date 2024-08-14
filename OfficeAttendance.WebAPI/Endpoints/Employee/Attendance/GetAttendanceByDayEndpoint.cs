@@ -2,7 +2,7 @@
 using OfficeAttendance.Application.DTOs.Attendance;
 using OfficeAttendance.Application.UseCases.Attendance;
 
-namespace OfficeAttendance.Application.Endpoints.Employee.Attendance;
+namespace OfficeAttendance.WebAPI.Endpoints.Employee.Attendance;
 
 public class GetAttendanceByDayEndpoint(GetAttendanceByDayUseCase getAttendanceByDayUseCase) : Endpoint<GetByDayRequest, GetByDayResponse> {
     public override void Configure() {
