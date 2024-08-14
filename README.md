@@ -21,15 +21,14 @@
 
 <div align="center">
   <h3>
-   <span>⚞</span>
    <a href="https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/">
       Clean Architecture
    </a>
-   <span> ♦ </span>
+   <!-- <span> ♦ </span>
     <a href="https://nicolasbracigliano.com/bit-acora/from-chaos-to-clarity-mastering-c4-diagrams-for-software-architecture/">
       C4 Diagrams
-    </a>
-    <span>⚟</span>
+    </a> -->
+    </h3>
 </div>
 
 <div align="center">
@@ -69,7 +68,7 @@ If you want to learn more about Clean Architecture, check out my blog post where
 TDD is a development methodology where tests are written before the code that fulfills the requirements. This ensures that the software design is guided by tests, resulting in higher code quality, fewer bugs, and a clearer understanding of the software's behavior.
 
 ## Architecture
-<p align="center"><img src="Docs/Assets/CleanArchitecture.jpg" alt="clean architecure diagram" width="440"></p>
+<p align="center"><img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecure diagram" width="450"></p>
 The project is structured according to Clean Architecture principles, dividing the codebase into distinct layers:
 
 - **Core Layer**: Contains the business logic and domain entities, which are agnostic of external systems.
