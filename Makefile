@@ -39,6 +39,11 @@ restart: down up
 clean:
 	docker-compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) down -v --rmi all --remove-orphans
 	docker system prune -f
+
+# Run app locally
+.PHONY: run
+run:
+	dotnet run --project OfficeAttendance.WebAPI
 	
 # Run tests with coverage
 .PHONY: test
