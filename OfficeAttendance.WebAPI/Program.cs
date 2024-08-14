@@ -1,10 +1,10 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
-using OfficeAttendanceAPI.Application.UseCases.Attendance;
-using OfficeAttendanceAPI.Core.Interfaces;
-using OfficeAttendanceAPI.Infrastructure.Data;
-using OfficeAttendanceAPI.Infrastructure.Data.Repositories;
+using OfficeAttendance.Application.UseCases.Attendance;
+using OfficeAttendance.Core.Interfaces;
+using OfficeAttendance.Infrastructure.Data;
+using OfficeAttendance.Infrastructure.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
