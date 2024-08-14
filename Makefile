@@ -23,7 +23,7 @@ down:
 # Run database migrations
 .PHONY: migrate
 migrate:
-	dotnet ef database update --project OfficeAttendanceAPI.Infrastructure/OfficeAttendanceAPI.Infrastructure.csproj
+	dotnet ef database update --project OfficeAttendance.Infrastructure/OfficeAttendance.Infrastructure.csproj
 
 # View logs
 .PHONY: logs
