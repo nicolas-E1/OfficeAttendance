@@ -6,7 +6,7 @@ using OfficeAttendance.Core.Interfaces;
 using OfficeAttendance.Infrastructure;
 using OfficeAttendance.Infrastructure.Data.Repositories;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
@@ -26,7 +26,7 @@ builder.Services.SwaggerDocument(o => {
     };
 });
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseFastEndpoints().UseSwaggerGen();
 
