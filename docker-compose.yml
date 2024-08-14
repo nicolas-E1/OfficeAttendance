@@ -1,4 +1,4 @@
-name: office-attendance-api
+name: office-attendance
 
 services:
   postgres_db:
