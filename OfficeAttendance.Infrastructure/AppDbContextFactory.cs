@@ -6,8 +6,8 @@ namespace OfficeAttendance.Infrastructure;
 
 public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext> {
     public AppDbContext CreateDbContext(string[] args) {
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../OfficeAttendanceAPI"))
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../OfficeAttendance.WebAPI"))
             .AddJsonFile("appsettings.json")
             .Build();
 
