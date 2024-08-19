@@ -24,22 +24,26 @@
    <a href="https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/">
       Clean Architecture
    </a>
-   <!-- <span> ♦ </span>
-    <a href="https://nicolasbracigliano.com/bit-acora/from-chaos-to-clarity-mastering-c4-diagrams-for-software-architecture/">
+   <span> ♦ </span>
+    <a href="https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012">
       C4 Diagrams
-    </a> -->
+    </a>
     </h3>
 </div>
 
 <div align="center">
   <sub>Built with ❤︎ by
-  <a href="https://nicolasbracigliano.com/about">Nicolas Bracigliano</a>
+  <a href="https://nicolasbracigliano.com/about">Nicolás Bracigliano</a>
 </div>
 
 ## Table of Contents
+
 - [Summary](#summary)
 - [Philosophy](#philosophy)
 - [Architecture](#architecture)
+- [Architecture Documentation](#architecture-documentation)
+- [C4 Model Overview](#c4-model-overview)
+- [Visualizing the Diagrams](#visualizing-the-diagrams)
 - [Project Structure](#project-structure)
 - [Setup](#setup)
 - [Testing](#testing)
@@ -47,16 +51,19 @@
 
 
 ## Summary
+
 The **Office Attendance** is a tool for announcing employee attendance in an hybrid office setting. This API allows you to track and record employee check-ins, generate attendance reports to have an idea when that person that you want to see in person will be going to the office.
 The project is built with a focus on Clean Architecture principles, ensuring separation of concerns, testability, and maintainability. It leverages .NET technologies and follows industry best practices such as Test-Driven Development (TDD).
 
 ## Philosophy
+
 This project is built on the foundations of Clean Architecture, Test-Driven Development (TDD), and a strong commitment to best practices in software development. Writing clean code and adhering to these principles not only ensures high-quality work but also makes life easier for your future self and colleagues.
 
 > 🌱  
 > I believe that if you want your future self and your colleagues to appreciate your work, writing clean code and following best practices will set you on the right path.
 
 ### Clean Architecture
+
 Clean Architecture, as advocated by Robert C. Martin (Uncle Bob), emphasizes the importance of separating the various layers of a software system to improve its modularity and scalability. The core of the application (domain entities, use cases) is kept independent of external frameworks, UI, or databases. This approach allows the application to be more adaptable to changes and easier to test.
 If you want to learn more about Clean Architecture, check out my blog post where I cover this topic.
 
@@ -65,10 +72,12 @@ If you want to learn more about Clean Architecture, check out my blog post where
 
 
 ### Test-Driven Development (TDD)
-TDD is a development methodology where tests are written before the code that fulfills the requirements. This ensures that the software design is guided by tests, resulting in higher code quality, fewer bugs, and a clearer understanding of the software's behavior.
+
+TDD is a development methodology where tests are written before the code that fulfils the requirements. This ensures that the software design is guided by tests, resulting in higher code quality, fewer bugs, and a clearer understanding of the software's behaviour.
 
 ## Architecture
-<p align="center"><img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecure diagram" width="450"></p>
+
+<p align="center"><img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecture diagram" width="450"></p>
 The project is structured according to Clean Architecture principles, dividing the codebase into distinct layers:
 
 - **Core Layer**: Contains the business logic and domain entities, which are agnostic of external systems.
@@ -78,18 +87,42 @@ The project is structured according to Clean Architecture principles, dividing t
 
 This separation ensures that each layer has a clear responsibility, making the system more maintainable and scalable.
 
+## Architecture Documentation
+
+The architecture of the **OfficeAttendance** system has been documented using the C4 model, which provides a clear and hierarchical view of the system from different levels of abstraction. This approach helps in understanding the overall structure and design of the system, from the high-level system context down to the individual components.
+
+### C4 Model Overview
+
+The C4 model is composed of four levels:
+
+1. **System Context**: Shows the system as a whole and its interactions with external actors.
+2. **Container**: Breaks down the system into containers such as web applications, databases, and microservices.
+3. **Component**: Further decomposes each container into individual components and their interactions.
+4. **Code**: (Optional) Focuses on the detailed implementation of individual components.
+
+To gain a deeper understanding of the C4 model and how it applies to documenting software architecture, have a look at my blog post:
+
+- **Blog Post**: [From Chaos to Clarity - Mastering C4 Diagrams for Software Architecture](https://nicolasbracigliano.com/bit-acora/from-chaos-to-clarity-mastering-c4-diagrams-for-software-architecture/)
+
+### Visualizing the Diagrams
+
+You can explore the C4 diagrams for the **OfficeAttendance** system via the following link:
+
+- **C4 Diagrams**: [Office Attendance System C4 Diagrams](https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012)
+
 ## Project Structure
 
 The **OfficeAttendance** solution is composed of five distinct projects, each serving a specific role within the overall architecture. This separation reinforces the principles of Clean Architecture by ensuring clear boundaries and preventing illegal dependencies between layers.
 
 ### Projects Overview
+
 - **`OfficeAttendance.Application`**: This project contains the application logic, including Data Transfer Objects (DTOs) and use cases. It is responsible for coordinating the application workflows and interacting with the core domain models while remaining agnostic of the underlying infrastructure and external interfaces.
 
 - **`OfficeAttendance.Core`**: The core domain models and interfaces are housed in this project. It defines the essential business rules and entities that are central to the application. This project is entirely independent of any external frameworks or libraries, adhering to the Clean Architecture principle of keeping the core pure and isolated.
 
 - **`OfficeAttendance.Infrastructure`**: This project is responsible for data persistence and the implementation of repository patterns. It provides the necessary infrastructure to interact with external systems like databases, ensuring that the core and application layers remain decoupled from these concerns.
 
-- **`OfficeAttendance.Tests`**: This project contains unit tests that validate the behavior of the application. By isolating the tests in a separate project, the codebase remains clean and the tests can be maintained independently from the application code.
+- **`OfficeAttendance.Tests`**: This project contains unit tests that validate the behaviour of the application. By isolating the tests in a separate project, the codebase remains clean and the tests can be maintained independently from the application code.
 
 - **`OfficeAttendance.WebAPI`**: Serving as the main entry point for the application, this project includes the WebAPI controllers and configuration files. It exposes the necessary endpoints for external interactions and manages the HTTP request/response lifecycle.
 
@@ -107,14 +140,16 @@ This structure ensures that there are no illegal interactions or dependencies, m
 ## Setup
 
 ### Prerequisites
+
 - .NET 8.0 SDK or later
 - Docker (if running the application in a containerized environment)
 
 ### Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/nicolas-E1/OfficeAttendance.git
-   cd officeattendance
+   cd officeAttendance
    ```
 
 2. Restore the dependencies:
@@ -128,9 +163,11 @@ This structure ensures that there are no illegal interactions or dependencies, m
    ```
 
 ### Configuration
+
 Configure the application settings by modifying the `appsettings.json` file located in the `OfficeAttendanceAPI` project. This file includes configurations for the database connection, logging, and other settings.
 
 ### Running the Project Locally
+
 To run the project locally:
 
 1. Use the following Makefile command:
@@ -144,6 +181,7 @@ To run the project locally:
    ```
 
 ### Running the Project with Docker
+
 To run the application in a Docker container:
 
 1. The first time run this command to run the migrations
@@ -156,7 +194,7 @@ To run the application in a Docker container:
    make up
    ```
 
-   Alternativally, you can use this run the migratinos
+   Alternatively, you can use this run the migrations
     ```bash
    make migrations
    ```
@@ -174,18 +212,20 @@ To run the application in a Docker container:
 ## Testing
 
 ### Unit Tests
-The project follows a TDD approach, with unit tests written to validate the behavior of the application. The tests are located in the `OfficeAttendance.Tests` project.
+
+The project follows a TDD approach, with unit tests written to validate the behaviour of the application. The tests are located in the `OfficeAttendance.Tests` project.
 
 To run the tests with coverage reports use:
 ```bash
 make test
 ```
-Alternativelly, you can run the tests with:
+Alternatively, you can run the tests with:
 ```bash
 dotnet test
 ```
 
 ### Integration and Contract Testing
+
 While the current setup only includes unit tests, integration tests and contract testing will be added in future iterations to ensure that the application works seamlessly with external systems and meets the specified contracts.
 
 ## Usage
@@ -216,4 +256,5 @@ The application also supports **Swagger**, an interactive API documentation tool
 In Swagger, you can view detailed documentation for each endpoint, including the expected request parameters, response formats, and possible error codes. This makes it easier to understand how to interact with the API and integrate it with other systems.
 
 ## Additional Notes
+
 This project is a demonstration of clean coding principles and architectural patterns. It is not yet production-ready, and further enhancements and optimisations are required before deployment in a live environment.

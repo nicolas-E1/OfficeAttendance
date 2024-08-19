@@ -1,10 +1,20 @@
 workspace {
+    name "Office Attendance System"
+    description "This workspace contains the architectural model and views for the Office Attendance System, which allows users to see who’s going to the office and share their own plans."
+
+    configuration {
+        scope softwareSystem
+    }
+
     model {
         user = person "User" "An Office Attendance user with an active account." "User"
         admin = person "Admin" "An Office Attendance user with admin privileges." "Admin"
 
         group "Office Attendance" {
             officeAttendance = softwareSystem "Office Attendance" "Enables users to see who’s going to the office and share their own plans." {
+                !docs doc-software-system.md
+                !adrs Decisions
+
                 webApp = container "Web Application" "Allows users to see who’s going to the office and share their own plans." "Typescript and React" "Web Browser" {
                     tags "WebApp"
                 }
@@ -53,47 +63,47 @@ workspace {
         }
         
         # Relationships between people and software systems
-        admin -> officeAttendance "Manages users and attendance."
-        user -> officeAttendance "Checks who’s going to the office and shares their own plans."
+        admin -> officeAttendance "Manages users and attendance." "Web Browser"
+        user -> officeAttendance "Checks who’s going to the office and shares their own plans." "Web Browser"
         # Relationships between people and containers
-        admin -> webApp "Manages users and attendance using the web app."
-        user -> webApp "Checks who’s going to the office and shares their own plans using the web app."
-        user -> mobileApp "Checks who’s going to the office and shares their own plans using the mobile app."
-        webApp -> api "Makes API requests to"
-        mobileApp -> api "Makes API requests to"
-        api -> application "Invokes use cases via"
-        application -> infrastructure "Persists and retrieves data via"
-        infrastructure -> db "Reads from and writes to"
-        application -> core "Interacts with code domain via"
-        tests -> api "Validates endpoints via"
-        tests -> application "Validates use cases via"
-        tests -> core "Validates domain logic via"
+        admin -> webApp "Manages users and attendance using the web app." "Web Browser"
+        user -> webApp "Checks who’s going to the office and shares their own plans using the web app." "Web Browser"
+        user -> mobileApp "Checks who’s going to the office and shares their own plans using the mobile app." "Mobile Device"
+        webApp -> api "Makes API requests to" "REST API"
+        mobileApp -> api "Makes API requests to" "REST API"
+        api -> application "Invokes use cases via" ".NET, C#"
+        application -> infrastructure "Persists and retrieves data via" ".NET, EF Core, C#"
+        infrastructure -> db "Reads from and writes to" ".NET, EF Core, PostgreSQL"
+        application -> core "Interacts with code domain via" ".NET, C#"
+        tests -> api "Validates endpoints via" ".NET, xUnit, C#"
+        tests -> application "Validates use cases via" ".NET, xUnit, C#"
+        tests -> core "Validates domain logic via" ".NET, xUnit, C#"
         # Relationships between containers
         // API
-        webApp -> attendanceController "Sends HTTP requests to"
-        mobileApp -> attendanceController "Sends HTTP requests to"
+        webApp -> attendanceController "Sends HTTP requests to" "React, .NET"
+        mobileApp -> attendanceController "Sends HTTP requests to" "React Native, .NET"
         // Application
-        api -> getAttendanceByDayUseCase "Executes use case logic via"
-        api -> getAttendanceByWeekUseCase "Executes use case logic via"
+        api -> getAttendanceByDayUseCase "Executes use case logic via" ".NET, C#"
+        api -> getAttendanceByWeekUseCase "Executes use case logic via" ".NET, C#"
         // Infrastructure
-        application -> attendanceRepository "Reads and writes data via"
-        application -> employeeRepository "Reads and writes data via"
-        attendanceRepository -> appDbContext "Uses for data operations"
-        employeeRepository -> appDbContext "Uses for data operations"
-        appDbContext -> appDbContextFactory "Uses"
+        application -> attendanceRepository "Reads and writes data via" ".NET, EF Core, C#"
+        application -> employeeRepository "Reads and writes data via" ".NET, EF Core, C#"
+        attendanceRepository -> appDbContext "Uses for data operations" ".NET, EF Core, C#"
+        employeeRepository -> appDbContext "Uses for data operations" ".NET, EF Core, C#"
+        appDbContext -> appDbContextFactory "Uses" ".NET, EF Core, C#"
         // Core
-        attendanceRepository -> attendance "Uses"
-        employeeRepository -> employee "Uses"
-        getAttendanceByDayUseCase -> attendance "Uses"
-        getAttendanceByWeekUseCase -> attendance "Uses"
-        attendance -> errorHandling "Throws"
-        employee -> errorHandling "Throws"
+        attendanceRepository -> attendance "Uses" ".NET, EF Core, C#"
+        employeeRepository -> employee "Uses" ".NET, EF Core, C#"
+        getAttendanceByDayUseCase -> attendance "Uses" ".NET, C#"
+        getAttendanceByWeekUseCase -> attendance "Uses" ".NET, C#"
+        attendance -> errorHandling "Throws" ".NET, C#"
+        employee -> errorHandling "Throws" ".NET, C#"
         // Tests
-        unitTests -> api "Validates"
-        integrationTests -> api "Validates"
-        endToEndTests -> api "Validates"
-        unitTests -> application "Validates"
-        unitTests -> core "Validates"
+        unitTests -> api "Validates" ".NET, xUnit, C#"
+        integrationTests -> api "Validates" ".NET, xUnit, C#"
+        endToEndTests -> api "Validates" ".NET, xUnit, C#"
+        unitTests -> application "Validates" ".NET, xUnit, C#"
+        unitTests -> core "Validates" ".NET, xUnit, C#"
     }
 
     views {
