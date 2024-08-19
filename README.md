@@ -24,16 +24,16 @@
    <a href="https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/">
       Clean Architecture
    </a>
-   <!-- <span> ♦ </span>
-    <a href="https://nicolasbracigliano.com/bit-acora/from-chaos-to-clarity-mastering-c4-diagrams-for-software-architecture/">
+   <span> ♦ </span>
+    <a href="https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012">
       C4 Diagrams
-    </a> -->
+    </a>
     </h3>
 </div>
 
 <div align="center">
   <sub>Built with ❤︎ by
-  <a href="https://nicolasbracigliano.com/about">Nicolas Bracigliano</a>
+  <a href="https://nicolasbracigliano.com/about">Nicolás Bracigliano</a>
 </div>
 
 ## Table of Contents
@@ -41,6 +41,9 @@
 - [Summary](#summary)
 - [Philosophy](#philosophy)
 - [Architecture](#architecture)
+- [Architecture Documentation](#architecture-documentation)
+- [C4 Model Overview](#c4-model-overview)
+- [Visualizing the Diagrams](#visualizing-the-diagrams)
 - [Project Structure](#project-structure)
 - [Setup](#setup)
 - [Testing](#testing)
@@ -83,6 +86,29 @@ The project is structured according to Clean Architecture principles, dividing t
 - **API Layer**: Provides the entry point for the application, exposing the necessary endpoints and managing user interactions.
 
 This separation ensures that each layer has a clear responsibility, making the system more maintainable and scalable.
+
+## Architecture Documentation
+
+The architecture of the **OfficeAttendance** system has been documented using the C4 model, which provides a clear and hierarchical view of the system from different levels of abstraction. This approach helps in understanding the overall structure and design of the system, from the high-level system context down to the individual components.
+
+### C4 Model Overview
+
+The C4 model is composed of four levels:
+
+1. **System Context**: Shows the system as a whole and its interactions with external actors.
+2. **Container**: Breaks down the system into containers such as web applications, databases, and microservices.
+3. **Component**: Further decomposes each container into individual components and their interactions.
+4. **Code**: (Optional) Focuses on the detailed implementation of individual components.
+
+To gain a deeper understanding of the C4 model and how it applies to documenting software architecture, have a look at my blog post:
+
+- **Blog Post**: [From Chaos to Clarity - Mastering C4 Diagrams for Software Architecture](https://nicolasbracigliano.com/bit-acora/from-chaos-to-clarity-mastering-c4-diagrams-for-software-architecture/)
+
+### Visualizing the Diagrams
+
+You can explore the C4 diagrams for the **OfficeAttendance** system via the following link:
+
+- **C4 Diagrams**: [Office Attendance System C4 Diagrams](https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012)
 
 ## Project Structure
 
