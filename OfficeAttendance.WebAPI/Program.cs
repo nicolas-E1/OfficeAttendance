@@ -1,4 +1,4 @@
-using FastEndpoints;
+﻿using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using OfficeAttendance.Application.UseCases.Attendance;
@@ -25,13 +25,13 @@ builder.Services.AddScoped<GetAttendanceByWeekUseCase>();
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddDbContext<AppDbContext>(options => {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    _ = options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.SwaggerDocument(o => {
-    o.DocumentSettings = s => {
-        s.Title = "Office Attendance API";
-        s.Version = "v1";
-        s.Description = "API to help you manage your office attendance. It allows you to manage employees and their attendance. It also allows you to know who's going to the office each day.";
+builder.Services.SwaggerDocument(options => {
+    options.DocumentSettings = settings => {
+        settings.Title = "Office Attendance API";
+        settings.Version = "v1";
+        settings.Description = "API to help you manage your office attendance. It allows you to manage employees and their attendance. It also allows you to know who's going to the office each day.";
     };
 });
 
