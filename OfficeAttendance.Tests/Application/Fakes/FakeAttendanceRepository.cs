@@ -6,6 +6,7 @@ namespace OfficeAttendance.Tests.Application.Fakes {
     public class FakeAttendanceRepository : IAttendanceRepository {
         private const int defaultWeek = 1;
         private readonly Dictionary<object, List<Employee>> _attendance = [];
+        private readonly Dictionary<int, List<AttendanceReport>> _attendanceReport = [];
         public bool WasGetByWeekCalled { get; private set; } = false;
         public bool WasGetByDayCalled { get; private set; } = false;
         public bool ShouldThrowException { get; set; } = false;
@@ -15,7 +16,7 @@ namespace OfficeAttendance.Tests.Application.Fakes {
         public void SetAttendance(IEnumerable<Employee>? attendance, DateOnly key) => _attendance[key] = attendance?.ToList() ?? [];
 
 
-        public void SetAttendanceForWeek(IEnumerable<Employee> attendance, int week) => _attendance[week] = attendance?.ToList() ?? [];
+        public void SetAttendanceForWeek(IEnumerable<AttendanceReport> attendance, int week) => _attendanceReport[week] = attendance.ToList() ?? [];
 
         public void SetCurrentWeek(int week) => _currentWeek = week;
 
@@ -28,13 +29,13 @@ namespace OfficeAttendance.Tests.Application.Fakes {
             return Task.FromResult<IEnumerable<Employee>>(attendance ?? []);
         }
 
-        public Task<IEnumerable<Employee>> GetByWeek(CancellationToken cancellationToken) {
+        public Task<IEnumerable<AttendanceReport>> GetByWeek(CancellationToken cancellationToken) {
             WasGetByWeekCalled = true;
             if (ShouldThrowException) {
                 throw new AttendanceNotFoundException("Failed to get attendance by week");
             }
-            _attendance.TryGetValue(_currentWeek, out List<Employee>? attendance);
-            return Task.FromResult<IEnumerable<Employee>>(attendance ?? []);
+            _ = _attendanceReport.TryGetValue(_currentWeek, out List<AttendanceReport>? attendance);
+            return Task.FromResult<IEnumerable<AttendanceReport>>(attendance ?? []);
         }
 
         public Task<IEnumerable<Attendance>> GetByUserId(int id, CancellationToken ct) => throw new NotImplementedException();
