@@ -20,18 +20,25 @@ public class GetAttendanceByWeekUseCaseTests {
     [Fact]
     public async Task GetAttendanceByWeekUseCase_ShouldReturnAttendance_WhenValidRequestIsPassed() {
         // Arrange
-        var mockAttendance = new List<Employee>
+        var mockAttendance = new List<AttendanceReport>
         {
-            new Employee { Id = 1, FirstName = "Dante", LastName = "Alighieri" },
+            new() {
+                Date = new DateOnly(2024, 09, 2),
+                Employees =
+                [
+                    new() { Id = 1, FirstName = "Dante", LastName = "Alighieri" }
+                ]
+            },
         };
-        _attendanceRepository.SetAttendance(mockAttendance);
+
+        _attendanceRepository.SetAttendanceForWeek(mockAttendance, 1);
 
         // Act
         GetByWeekResponse result = await _useCase.ExecuteAsync(_cancellationToken);
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(mockAttendance.Count, result.Employees.Count());
+        Assert.Equal(mockAttendance.Count, result.AttendanceReport.Count());
         Assert.True(_attendanceRepository.WasGetByWeekCalled);
     }
 
@@ -45,7 +52,7 @@ public class GetAttendanceByWeekUseCaseTests {
 
         // Assert
         Assert.NotNull(result);
-        Assert.Empty(result.Employees);
+        Assert.Empty(result.AttendanceReport);
         Assert.True(_attendanceRepository.WasGetByWeekCalled);
     }
 
@@ -79,14 +86,35 @@ public class GetAttendanceByWeekUseCaseTests {
     [Fact]
     public async Task GetAttendanceByWeekUseCase_ShouldReturnCorrectAttendance_WhenDifferentWeeksAreQueried() {
         // Arrange
-        var week1Attendance = new List<Employee>
+        var week1Attendance = new List<AttendanceReport>
         {
-            new() { Id = 1, FirstName = "Dante", LastName = "Alighieri" },
-            new() { Id = 2, FirstName = "Italo", LastName = "Calvino" },
+            new() {
+                Date = new DateOnly(2024, 09, 2),
+                Employees =
+                [
+                    new() { Id = 1, FirstName = "Dante", LastName = "Alighieri" },
+                    new() { Id = 2, FirstName = "Italo", LastName = "Calvino" }
+                ]
+            },
+            new() {
+                Date = new DateOnly(2024, 09, 4),
+                Employees =
+                [
+                    new() { Id = 3, FirstName = "Giovanni", LastName = "Boccaccio" },
+                    new() { Id = 4, FirstName = "Petrarch", LastName = "Francesco" }
+                ]
+            }
         };
-        var week2Attendance = new List<Employee>
+        
+        var week2Attendance = new List<AttendanceReport>
         {
-            new() { Id = 3, FirstName = "Julio", LastName = "Cortazar" },
+            new() {
+                Date = new DateOnly(2024, 09, 9),
+                Employees =
+                [
+                    new Employee { Id = 5, FirstName = "Julio", LastName = "Cortazar" }
+                ]
+            }
         };
 
         _attendanceRepository.SetAttendanceForWeek(week1Attendance, 1);
@@ -99,10 +127,10 @@ public class GetAttendanceByWeekUseCaseTests {
 
         // Assert
         Assert.NotNull(resultWeek1);
-        Assert.Equal(week1Attendance.Count(), resultWeek1.Employees.Count());
+        Assert.Equal(week1Attendance.Count, resultWeek1.AttendanceReport.Count());
 
         Assert.NotNull(resultWeek2);
-        Assert.Equal(week2Attendance.Count(), resultWeek2.Employees.Count());
+        Assert.Equal(week2Attendance.Count, resultWeek2.AttendanceReport.Count());
     }
 
     [Fact]
@@ -115,7 +143,7 @@ public class GetAttendanceByWeekUseCaseTests {
 
         // Assert
         Assert.NotNull(result);
-        Assert.Empty(result.Employees);
+        Assert.Empty(result.AttendanceReport);
         Assert.True(_attendanceRepository.WasGetByWeekCalled);
     }
 }

@@ -2,7 +2,7 @@
 using OfficeAttendance.Application.DTOs.Attendance;
 using OfficeAttendance.Application.UseCases.Attendance;
 
-namespace OfficeAttendance.WebAPI.Endpoints.Employee.Attendance;
+namespace OfficeAttendance.WebAPI.Endpoints.Attendance;
 
 public class GetAttendanceByWeekEndpoint(GetAttendanceByWeekUseCase getAttendanceByWeekUseCase) : EndpointWithoutRequest<GetByWeekResponse> {
     public override void Configure() {
@@ -11,7 +11,7 @@ public class GetAttendanceByWeekEndpoint(GetAttendanceByWeekUseCase getAttendanc
     }
 
     public override async Task HandleAsync(CancellationToken ct) {
-        var response = await getAttendanceByWeekUseCase.ExecuteAsync(ct);
+        GetByWeekResponse response = await getAttendanceByWeekUseCase.ExecuteAsync(ct);
         await SendAsync(response, cancellation: ct);
     }
 }
