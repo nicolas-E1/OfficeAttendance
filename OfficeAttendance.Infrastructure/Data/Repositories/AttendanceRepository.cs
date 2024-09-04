@@ -23,20 +23,30 @@ public class AttendanceRepository(AppDbContext dbContext) : IAttendanceRepositor
         }
     }
 
-    public async Task<IEnumerable<Employee>> GetByWeek(CancellationToken ct) {
+    public async Task<IEnumerable<AttendanceReport>> GetByWeek(CancellationToken ct) {
         try {
-            var today = DateTime.Today;
-            var startOfWeek = today.AddDays(-((int)today.DayOfWeek - (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek));
-            var endOfWeek = startOfWeek.AddDays(7);
-            var userIds = await dbContext.Attendances
+            DateTime today = DateTime.Today;
+            DateTime startOfWeek = today.AddDays(-((int)today.DayOfWeek - (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek));
+            DateTime endOfWeek = startOfWeek.AddDays(7);
+
+            List<Attendance> attendanceRecords = await dbContext.Attendances
                 .Where(a => a.Date.ToDateTime(TimeOnly.FromDateTime(today)) >= startOfWeek && a.Date.ToDateTime(TimeOnly.FromDateTime(today)) < endOfWeek)
-                .Select(a => a.EmployeeId)
-                .Distinct()
                 .ToListAsync(ct);
 
-            return await dbContext.Employees
-                .Where(u => userIds.Contains(u.Id))
+            IEnumerable<int> employeeIds = attendanceRecords.Select(a => a.EmployeeId).Distinct();
+
+            List<Employee> employees = await dbContext.Employees
+                .Where(e => employeeIds.Contains(e.Id))
                 .ToListAsync(ct);
+
+            var attendanceReport = attendanceRecords
+                .GroupBy(a => a.Date)
+                .Select(g => new AttendanceReport {
+                    Date = g.Key,
+                    Employees = g.Select(a => employees.First(e => e.Id == a.EmployeeId)).ToList()
+                }).ToList();
+
+            return attendanceReport;
         }
         catch (Exception ex) {
             throw new AttendanceNotFoundException("Failed to get attendance by week", ex);
