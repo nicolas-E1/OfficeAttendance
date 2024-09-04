@@ -3,5 +3,5 @@
 namespace OfficeAttendance.Application.DTOs.Attendance;
 
 public class GetByWeekResponse {
-    public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
+    public IEnumerable<AttendanceReport> AttendanceReport { get; set; } = [];
 }
