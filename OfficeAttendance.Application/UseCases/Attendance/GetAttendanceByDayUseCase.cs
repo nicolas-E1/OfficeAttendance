@@ -1,14 +1,16 @@
 ﻿using OfficeAttendance.Application.DTOs.Attendance;
-using OfficeAttendance.Core.Interfaces;
+using OfficeAttendance.Core.Entities;
 using OfficeAttendance.Core.Exceptions.Attendance;
+using OfficeAttendance.Core.Interfaces;
 
 namespace OfficeAttendance.Application.UseCases.Attendance;
+
 public class GetAttendanceByDayUseCase(IAttendanceRepository attendanceRepository) {
     public async Task<GetByDayResponse> ExecuteAsync(GetByDayRequest request, CancellationToken ct) {
         ct.ThrowIfCancellationRequested();
 
         try {
-            var attendanceRecords = await attendanceRepository.GetByDay(request.Date, ct);
+            IEnumerable<Employee> attendanceRecords = await attendanceRepository.GetByDay(request.Date, ct);
             return new GetByDayResponse { Employees = attendanceRecords };
         }
         catch (Exception ex) {
