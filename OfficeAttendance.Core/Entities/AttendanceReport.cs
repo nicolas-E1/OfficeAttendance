@@ -1,4 +1,4 @@
-namespace OfficeAttendance.Core.Entities;
+﻿namespace OfficeAttendance.Core.Entities;
 
 public class AttendanceReport {
     public DateOnly Date { get; set; }
