@@ -3,7 +3,9 @@
         "c4"
     ],
     "cSpell.words": [
+        "Alighieri",
         "appsettings",
         "Npgsql"
-    ]
+    ],
+    "makefile.configureOnOpen": true
 }
