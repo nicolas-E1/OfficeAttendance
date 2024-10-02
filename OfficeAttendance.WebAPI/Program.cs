@@ -12,8 +12,7 @@ const string OriginsWhitelist = "_originsWhitelist";
 
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
 
-if (allowedOrigins == null || allowedOrigins.Length == 0)
-{
+if (allowedOrigins == null || allowedOrigins.Length == 0) {
     throw new InvalidOperationException("CORS allowed origins not configured properly. Please check the 'Cors:AllowedOrigins' setting in the configuration files.");
 }
 
@@ -22,6 +21,7 @@ builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 
 builder.Services.AddScoped<GetAttendanceByDayUseCase>();
 builder.Services.AddScoped<GetAttendanceByWeekUseCase>();
+builder.Services.AddScoped<SetAttendanceForEmployeeUseCase>();
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddDbContext<AppDbContext>(options => {
@@ -41,7 +41,7 @@ builder.Services.AddCors(options => {
             _ = builder.WithOrigins(allowedOrigins)
                 .AllowAnyMethod()
                 .AllowAnyHeader();
-            });
+        });
 });
 
 WebApplication app = builder.Build();
