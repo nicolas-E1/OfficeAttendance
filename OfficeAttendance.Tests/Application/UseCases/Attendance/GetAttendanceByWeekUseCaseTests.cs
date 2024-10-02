@@ -105,7 +105,7 @@ public class GetAttendanceByWeekUseCaseTests {
                 ]
             }
         };
-        
+
         var week2Attendance = new List<AttendanceReport>
         {
             new() {
