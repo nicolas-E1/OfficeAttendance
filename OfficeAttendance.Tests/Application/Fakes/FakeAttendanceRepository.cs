@@ -4,17 +4,17 @@ using OfficeAttendance.Core.Interfaces;
 
 namespace OfficeAttendance.Tests.Application.Fakes;
 public class FakeAttendanceRepository : IAttendanceRepository {
-    private const int defaultWeek = 1;
+    private const int DefaultWeek = 1;
     private readonly Dictionary<object, List<Employee>> _attendance = [];
     private readonly Dictionary<int, List<AttendanceReport>> _attendanceReport = [];
     public bool WasGetByWeekCalled { get; private set; } = false;
     public bool WasGetByDayCalled { get; private set; } = false;
     public bool ShouldThrowException { get; set; } = false;
-    private int _currentWeek = defaultWeek;
+    private int _currentWeek = DefaultWeek;
 
-    public void SetAttendance(IEnumerable<Employee>? attendance, int key = defaultWeek) => _attendance[key] = attendance?.ToList() ?? [];
+    public void SetAttendance(IEnumerable<Employee>? attendance, int key = DefaultWeek) => _attendance[key] = attendance?.ToList() ?? [];
     public void SetAttendance(IEnumerable<Employee>? attendance, DateOnly key) => _attendance[key] = attendance?.ToList() ?? [];
-    public void SetAttendanceForWeek(IEnumerable<AttendanceReport> attendance, int week) => _attendanceReport[week] = attendance.ToList() ?? [];
+    public void SetAttendanceForWeek(IEnumerable<AttendanceReport> attendance, int week) => _attendanceReport[week] = attendance.ToList();
     public void SetCurrentWeek(int week) => _currentWeek = week;
 
     public Task<IEnumerable<Employee>> GetByDay(DateOnly date, CancellationToken ct) {
@@ -26,7 +26,7 @@ public class FakeAttendanceRepository : IAttendanceRepository {
         return Task.FromResult<IEnumerable<Employee>>(attendance ?? []);
     }
 
-    public Task<IEnumerable<AttendanceReport>> GetByWeek(CancellationToken cancellationToken) {
+    public Task<IEnumerable<AttendanceReport>> GetByWeek(CancellationToken ct) {
         WasGetByWeekCalled = true;
         if (ShouldThrowException) {
             throw new AttendanceNotFoundException("Failed to get attendance by week");
