@@ -49,4 +49,4 @@ WebApplication app = builder.Build();
 app.UseCors(OriginsWhitelist);
 app.UseFastEndpoints().UseSwaggerGen();
 
-app.Run();
+await app.RunAsync();
