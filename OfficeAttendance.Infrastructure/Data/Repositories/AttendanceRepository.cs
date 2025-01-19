@@ -1,8 +1,9 @@
 ﻿using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using OfficeAttendance.Core.Entities;
-using OfficeAttendance.Core.Interfaces;
 using OfficeAttendance.Core.Exceptions.Attendance;
+using OfficeAttendance.Core.Exceptions.Employee;
+using OfficeAttendance.Core.Interfaces;
 
 namespace OfficeAttendance.Infrastructure.Data.Repositories;
 
@@ -64,23 +65,36 @@ public class AttendanceRepository(AppDbContext dbContext) : IAttendanceRepositor
         }
     }
 
-    public async Task<Attendance> ConfirmAttendance(Attendance attendance, CancellationToken ct) {
+    public async Task<AttendanceReport> ConfirmAttendance(Attendance attendance, CancellationToken ct) {
         try {
-            var existingAttendance = await dbContext.Attendances
+            Employee? employee = await dbContext.Employees.FindAsync(attendance.EmployeeId) ??
+                throw new EmployeeNotFoundException($"Failed to confirm attendance. Employee with id: {attendance.EmployeeId} not found.");
+
+            Attendance? existingAttendance = await dbContext.Attendances
                 .Where(a => a.EmployeeId == attendance.EmployeeId && a.Date == attendance.Date)
                 .FirstOrDefaultAsync(ct);
 
             if (existingAttendance != null) {
-                return existingAttendance;
+                return new AttendanceReport {
+                    Date = existingAttendance.Date,
+                    Employees = [
+                        employee
+                    ]
+                };
             }
 
-            dbContext.Attendances.Add(attendance);
-            await dbContext.SaveChangesAsync(ct);
+            _ = dbContext.Attendances.AddAsync(attendance);
+            _ = await dbContext.SaveChangesAsync(ct);
 
-            return attendance;
+            return new AttendanceReport {
+                Date = attendance.Date,
+                Employees = [
+                    employee
+                ]
+            };
         }
         catch (Exception ex) {
-            throw new AttendanceConfirmException("Failed to confirm attendance", ex);
+            throw new SetAttendanceException("Failed to confirm attendance", ex);
         }
     }
 

@@ -1,9 +1,10 @@
 ﻿using OfficeAttendance.Application.DTOs.Attendance;
-using OfficeAttendance.Core.Interfaces;
-using OfficeAttendance.Core.Exceptions.Attendance;
 using OfficeAttendance.Core.Entities;
+using OfficeAttendance.Core.Exceptions.Attendance;
+using OfficeAttendance.Core.Interfaces;
 
 namespace OfficeAttendance.Application.UseCases.Attendance;
+
 public class GetAttendanceByWeekUseCase(IAttendanceRepository attendanceRepository) {
     public async Task<GetByWeekResponse> ExecuteAsync(CancellationToken ct) {
         ct.ThrowIfCancellationRequested();

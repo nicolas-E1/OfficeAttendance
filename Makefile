@@ -43,9 +43,9 @@ clean:
 # Run app locally
 .PHONY: run
 run:
-	dotnet run --project OfficeAttendance.WebAPI
+	ASPNETCORE_ENVIRONMENT=Development dotnet run --project OfficeAttendance.WebAPI
 	
 # Run tests with coverage
 .PHONY: test
 test:
-	dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/
+	dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/ /p:Exclude="[xunit*]*%2c[OfficeAttendance.Infrastructure]*%2c[OfficeAttendanceAPI.Tests]*"
