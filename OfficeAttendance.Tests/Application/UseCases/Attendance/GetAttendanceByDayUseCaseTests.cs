@@ -10,12 +10,12 @@ public class GetAttendanceByDayUseCaseTests {
     private readonly FakeAttendanceRepository _attendanceRepository;
     private readonly GetAttendanceByDayUseCase _useCase;
     private readonly CancellationToken _cancellationToken;
-    private readonly GetByDayRequest _request = new() { Date = new DateOnly(2024, 1, 1) };
+    private readonly GetByDayRequest _request;
 
     public GetAttendanceByDayUseCaseTests() {
         _attendanceRepository = new FakeAttendanceRepository();
         _useCase = new GetAttendanceByDayUseCase(_attendanceRepository);
-        _cancellationToken = new CancellationToken();
+        _cancellationToken = CancellationToken.None;
         _request = new GetByDayRequest { Date = new DateOnly(2024, 1, 1) };
     }
 
@@ -67,11 +67,11 @@ public class GetAttendanceByDayUseCaseTests {
     [Fact]
     public async Task GetAttendanceByDayUseCase_ShouldRespectCancellationToken_WhenRepositoryReturnsNull() {
         // Arrange
-        var cancellationTokenSource = new CancellationTokenSource();
-        cancellationTokenSource.Cancel();
+        using var ct = new CancellationTokenSource();
+        await ct.CancelAsync();
 
         // Act
-        async Task Act() => await _useCase.ExecuteAsync(_request, cancellationTokenSource.Token);
+        async Task Act() => await _useCase.ExecuteAsync(_request, ct.Token);
 
         // Assert
         _ = await Assert.ThrowsAsync<OperationCanceledException>(Act);
@@ -102,10 +102,10 @@ public class GetAttendanceByDayUseCaseTests {
         Assert.True(_attendanceRepository.WasGetByDayCalled);
 
         Assert.NotNull(resultDay1);
-        Assert.Equal(day1Attendance.Count(), resultDay1.Employees.Count());
+        Assert.Equal(day1Attendance.Count, resultDay1.Employees.Count());
 
         Assert.NotNull(resultDay2);
-        Assert.Equal(day2Attendance.Count(), resultDay2.Employees.Count());
+        Assert.Equal(day2Attendance.Count, resultDay2.Employees.Count());
     }
 
     [Fact]
