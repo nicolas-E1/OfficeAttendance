@@ -1,17 +1,17 @@
 <Project>
     <ItemGroup>
-        <PackageReference Update="FastEndpoints" Version="5.28.0" />
-        <PackageReference Update="FastEndpoints.Swagger" Version="5.28.0" />
-        <PackageReference Update="Microsoft.EntityFrameworkCore" Version="8.0.7" />
-        <PackageReference Update="Microsoft.EntityFrameworkCore.Relational" Version="8.0.7" />
-        <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="8.0.7"/>
-        <PackageReference Update="Microsoft.Extensions.Configuration" Version="8.0.0" />
-        <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Update="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-        <PackageReference Update="coverlet.collector" Version="6.0.2" />
-        <PackageReference Update="coverlet.msbuild" Version="6.0.2" />
-        <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.11.0" />
-        <PackageReference Update="xunit" Version="2.9.0" />
-        <PackageReference Update="xunit.runner.visualstudio" Version="2.9.0" />
+        <PackageReference Update="FastEndpoints" Version="5.33.0" />
+        <PackageReference Update="FastEndpoints.Swagger" Version="5.33.0" />
+        <PackageReference Update="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+        <PackageReference Update="Microsoft.EntityFrameworkCore.Relational" Version="9.0.1" />
+        <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="9.0.1"/>
+        <PackageReference Update="Microsoft.Extensions.Configuration" Version="9.0.1" />
+        <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+        <PackageReference Update="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+        <PackageReference Update="coverlet.collector" Version="6.0.3" />
+        <PackageReference Update="coverlet.msbuild" Version="6.0.3" />
+        <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+        <PackageReference Update="xunit" Version="2.9.3" />
+        <PackageReference Update="xunit.runner.visualstudio" Version="3.0.1" />
     </ItemGroup>
 </Project>

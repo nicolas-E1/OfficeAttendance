@@ -94,5 +94,5 @@ dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 
 # Visual Studio specific settings
 [*.csproj]
-# Prefer .NET 8
-net_version = 8.0
+# Prefer .NET 9
+net_version = 9.0

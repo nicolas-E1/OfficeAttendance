@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy only the necessary files for dotnet restore
@@ -13,11 +13,15 @@ WORKDIR /app
 RUN dotnet restore OfficeAttendance.sln
 
 # Copy the rest of the files and publish the application
-COPY . .
+COPY OfficeAttendance.Core/. OfficeAttendance.Core/
+COPY OfficeAttendance.Application/. OfficeAttendance.Application/
+COPY OfficeAttendance.Infrastructure/. OfficeAttendance.Infrastructure/
+COPY OfficeAttendance.Tests/. OfficeAttendance.Tests/
+COPY OfficeAttendance.WebAPI/. OfficeAttendance.WebAPI/
 RUN dotnet publish OfficeAttendance.sln -c Release -o out
 
 # Use the runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 
 # Copy the published files from the build image

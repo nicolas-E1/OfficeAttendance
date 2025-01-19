@@ -1,25 +1,24 @@
-<h1 align="center">OfficeAttendance</h1>
-<div align="center">
+<h1 style="text-align: center">OfficeAttendance</h1>
+<div style="text-align: center">
   <strong>Making it easy to catch up with your mates during hybrid times</strong>
 </div>
-<div align="center">
+<div style="text-align: center">
   <em>With a Clean Architecture twist</em>
 </div>
 
 <br />
 
-<div align="center">
+<div style="text-align: center">
 
-[![.NET Version](https://img.shields.io/badge/.NET-8-purple.svg)](https://shields.io/)
+[![.NET Version](https://img.shields.io/badge/.NET-9-purple.svg)](https://shields.io/)
 [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://docker.com/)
 [![Clean Architecture](https://img.shields.io/badge/Following-CleanArchitecture-yellow.svg)](https://shields.io/)
 [![TDD](https://img.shields.io/badge/Following-TDD-yellow.svg)](https://shields.io/)
-[![GitHub latest commit](https://badgen.net/github/last-commit/Nicolas-E1/OfficeAttendance)](https://GitHub.com/Naereen/StrapDown.js/commit/)
-[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/nicolas-e1/)
 
 </div>
 
-<div align="center">
+<div style="text-align: center">
   <h3>
    <a href="https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/">
       Clean Architecture
@@ -31,9 +30,10 @@
     </h3>
 </div>
 
-<div align="center">
+<div style="text-align: center">
   <sub>Built with ❤︎ by
-  <a href="https://nicolasbracigliano.com/about">Nicolás Bracigliano</a>
+    <a href="https://nicolasbracigliano.com/about">Nicolás Bracigliano</a>
+  </sub>
 </div>
 
 ## Table of Contents
@@ -52,14 +52,14 @@
 
 ## Summary
 
-The **Office Attendance** is a tool for announcing employee attendance in an hybrid office setting. This API allows you to track and record employee check-ins, generate attendance reports to have an idea when that person that you want to see in person will be going to the office.
+The **Office Attendance** is a tool for announcing employee attendance in a hybrid office setting. This API allows you to track and record employee check-ins, generate attendance reports to have an idea when that person that you want to see in person will be going to the office.
 The project is built with a focus on Clean Architecture principles, ensuring separation of concerns, testability, and maintainability. It leverages .NET technologies and follows industry best practices such as Test-Driven Development (TDD).
 
 ## Philosophy
 
 This project is built on the foundations of Clean Architecture, Test-Driven Development (TDD), and a strong commitment to best practices in software development. Writing clean code and adhering to these principles not only ensures high-quality work but also makes life easier for your future self and colleagues.
 
-> 🌱  
+> 🌱
 > I believe that if you want your future self and your colleagues to appreciate your work, writing clean code and following best practices will set you on the right path.
 
 ### Clean Architecture
@@ -67,7 +67,7 @@ This project is built on the foundations of Clean Architecture, Test-Driven Deve
 Clean Architecture, as advocated by Robert C. Martin (Uncle Bob), emphasizes the importance of separating the various layers of a software system to improve its modularity and scalability. The core of the application (domain entities, use cases) is kept independent of external frameworks, UI, or databases. This approach allows the application to be more adaptable to changes and easier to test.
 If you want to learn more about Clean Architecture, check out my blog post where I cover this topic.
 
-> 💡  
+> 💡
 > If you want to learn more about Clean Architecture, check out my **[blog post](https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/)** where I cover this topic.
 
 
@@ -77,7 +77,7 @@ TDD is a development methodology where tests are written before the code that fu
 
 ## Architecture
 
-<p align="center"><img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecture diagram" width="450"></p>
+<p style="text-align: center"><img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecture diagram" width="1058"></p>
 The project is structured according to Clean Architecture principles, dividing the codebase into distinct layers:
 
 - **Core Layer**: Contains the business logic and domain entities, which are agnostic of external systems.
@@ -122,7 +122,7 @@ The **OfficeAttendance** solution is composed of five distinct projects, each se
 
 - **`OfficeAttendance.Infrastructure`**: This project is responsible for data persistence and the implementation of repository patterns. It provides the necessary infrastructure to interact with external systems like databases, ensuring that the core and application layers remain decoupled from these concerns.
 
-- **`OfficeAttendance.Tests`**: This project contains unit tests that validate the behaviour of the application. By isolating the tests in a separate project, the codebase remains clean and the tests can be maintained independently from the application code.
+- **`OfficeAttendance.Tests`**: This project contains unit tests that validate the behaviour of the application. By isolating the tests in a separate project, the codebase remains clean and the tests can be maintained independently of the application code.
 
 - **`OfficeAttendance.WebAPI`**: Serving as the main entry point for the application, this project includes the WebAPI controllers and configuration files. It exposes the necessary endpoints for external interactions and manages the HTTP request/response lifecycle.
 
@@ -141,7 +141,7 @@ This structure ensures that there are no illegal interactions or dependencies, m
 
 ### Prerequisites
 
-- .NET 8.0 SDK or later
+- .NET 9.0 SDK or later
 - Docker (if running the application in a containerized environment)
 
 ### Installation
@@ -188,7 +188,7 @@ To run the application in a Docker container:
    ```bash
    make all
    ```
-   
+
    Then you can use this to just spin up the containers
     ```bash
    make up
