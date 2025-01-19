@@ -7,9 +7,9 @@ public class FakeAttendanceRepository : IAttendanceRepository {
     private const int DefaultWeek = 1;
     private readonly Dictionary<object, List<Employee>> _attendance = [];
     private readonly Dictionary<int, List<AttendanceReport>> _attendanceReport = [];
-    public bool WasGetByWeekCalled { get; private set; } = false;
-    public bool WasGetByDayCalled { get; private set; } = false;
-    public bool ShouldThrowException { get; set; } = false;
+    public bool WasGetByWeekCalled { get; private set; }
+    public bool WasGetByDayCalled { get; private set; }
+    public bool ShouldThrowException { get; set; }
     private int _currentWeek = DefaultWeek;
 
     public void SetAttendance(IEnumerable<Employee>? attendance, int key = DefaultWeek) => _attendance[key] = attendance?.ToList() ?? [];

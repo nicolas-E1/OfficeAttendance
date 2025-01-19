@@ -14,7 +14,7 @@ public class GetAttendanceByWeekUseCaseTests {
     public GetAttendanceByWeekUseCaseTests() {
         _attendanceRepository = new FakeAttendanceRepository();
         _useCase = new GetAttendanceByWeekUseCase(_attendanceRepository);
-        _cancellationToken = new CancellationToken();
+        _cancellationToken = CancellationToken.None;
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class GetAttendanceByWeekUseCaseTests {
                 Date = new DateOnly(2024, 09, 2),
                 Employees =
                 [
-                    new() { Id = 1, FirstName = "Dante", LastName = "Alighieri" }
+                    new Employee { Id = 1, FirstName = "Dante", LastName = "Alighieri" }
                 ]
             },
         };
@@ -72,11 +72,11 @@ public class GetAttendanceByWeekUseCaseTests {
     [Fact]
     public async Task GetAttendanceByWeekUseCase_ShouldRespectCancellationToken_WhenRepositoryReturnsNull() {
         // Arrange
-        var cancellationTokenSource = new CancellationTokenSource();
-        cancellationTokenSource.Cancel();
+        using var ct = new CancellationTokenSource();
+        await ct.CancelAsync();
 
         // Act
-        async Task Act() => await _useCase.ExecuteAsync(cancellationTokenSource.Token);
+        async Task Act() => await _useCase.ExecuteAsync(ct.Token);
 
         // Assert
         _ = await Assert.ThrowsAsync<OperationCanceledException>(Act);
@@ -92,16 +92,16 @@ public class GetAttendanceByWeekUseCaseTests {
                 Date = new DateOnly(2024, 09, 2),
                 Employees =
                 [
-                    new() { Id = 1, FirstName = "Dante", LastName = "Alighieri" },
-                    new() { Id = 2, FirstName = "Italo", LastName = "Calvino" }
+                    new Employee { Id = 1, FirstName = "Dante", LastName = "Alighieri" },
+                    new Employee { Id = 2, FirstName = "Italo", LastName = "Calvino" }
                 ]
             },
             new() {
                 Date = new DateOnly(2024, 09, 4),
                 Employees =
                 [
-                    new() { Id = 3, FirstName = "Giovanni", LastName = "Boccaccio" },
-                    new() { Id = 4, FirstName = "Petrarch", LastName = "Francesco" }
+                    new Employee { Id = 3, FirstName = "Giovanni", LastName = "Boccaccio" },
+                    new Employee { Id = 4, FirstName = "Petrarch", LastName = "Francesco" }
                 ]
             }
         };

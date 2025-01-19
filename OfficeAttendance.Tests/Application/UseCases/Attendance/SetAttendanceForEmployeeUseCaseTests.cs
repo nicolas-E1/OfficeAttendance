@@ -46,28 +46,28 @@ public class SetAttendanceForEmployeeUseCaseTests {
         _attendanceRepository.ShouldThrowException = true;
 
         // Act
-        async Task action() => await _useCase.ExecuteAsync(new SetAttendanceRequest {
+        async Task Action() => await _useCase.ExecuteAsync(new SetAttendanceRequest {
             EmployeeId = 1,
             Date = new DateOnly(2024, 09, 2)
         }, CancellationToken.None);
 
         // Assert
-        _ = await Assert.ThrowsAsync<SetAttendanceException>(action);
+        _ = await Assert.ThrowsAsync<SetAttendanceException>(Action);
     }
 
     [Fact]
     public async Task SetAttendanceForEmployeeUseCase_ShouldThrowOperationCanceledException_WhenRequestIsCancelled() {
         // Arrange
-        var cts = new CancellationTokenSource();
-        cts.Cancel();
+        using var cts = new CancellationTokenSource();
+        await cts.CancelAsync();
 
         // Act
-        async Task action() => await _useCase.ExecuteAsync(new SetAttendanceRequest {
+        async Task Action() => await _useCase.ExecuteAsync(new SetAttendanceRequest {
             EmployeeId = 1,
             Date = new DateOnly(2024, 09, 2)
         }, cts.Token);
 
         // Assert
-        _ = await Assert.ThrowsAsync<OperationCanceledException>(action);
+        _ = await Assert.ThrowsAsync<OperationCanceledException>(Action);
     }
 }
