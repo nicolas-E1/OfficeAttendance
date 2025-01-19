@@ -1,11 +1,26 @@
 {
-    "cSpell.enableFiletypes": [
-        "c4"
-    ],
+    "cSpell.enabledFileTypes": {
+        "c4": true
+    },
     "cSpell.words": [
+        "Bracigliano",
         "Alighieri",
+        "analyzers",
         "appsettings",
-        "Npgsql"
+        "aspnet",
+        "ASPNETCORE",
+        "buildtransitive",
+        "contentfiles",
+        "dotnettools",
+        "healthcheck",
+        "isready",
+        "msbuild",
+        "Npgsql",
+        "xunit"
     ],
-    "makefile.configureOnOpen": true
+    "makefile.configureOnOpen": true,
+    "sonarlint.connectedMode.project": {
+        "connectionId": "OfficeAttendance",
+        "projectKey": "nicolas-E1_OfficeAttendance"
+    }
 }
