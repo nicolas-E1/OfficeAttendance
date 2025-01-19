@@ -8,7 +8,7 @@ using OfficeAttendance.Infrastructure.Data.Repositories;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-const string OriginsWhitelist = "_originsWhitelist";
+const string originsWhitelist = "_originsWhitelist";
 
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
 
@@ -36,9 +36,9 @@ builder.Services.SwaggerDocument(options => {
 });
 
 builder.Services.AddCors(options => {
-    options.AddPolicy(name: OriginsWhitelist,
-        builder => {
-            _ = builder.WithOrigins(allowedOrigins)
+    options.AddPolicy(name: originsWhitelist,
+        corsPolicyBuilder => {
+            _ = corsPolicyBuilder.WithOrigins(allowedOrigins)
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });
@@ -46,7 +46,7 @@ builder.Services.AddCors(options => {
 
 WebApplication app = builder.Build();
 
-app.UseCors(OriginsWhitelist);
+app.UseCors(originsWhitelist);
 app.UseFastEndpoints().UseSwaggerGen();
 
 await app.RunAsync();
