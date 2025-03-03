@@ -24,7 +24,7 @@ services:
   app:
     image: mcr.microsoft.com/dotnet/aspnet:9.0
     container_name: office_attendance_api
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     depends_on:
@@ -33,7 +33,7 @@ services:
     networks:
       - office_attendance_network
     ports:
-      - "5555:80"
+      - "5555:8080"
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

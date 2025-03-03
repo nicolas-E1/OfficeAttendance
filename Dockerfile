@@ -27,5 +27,5 @@ WORKDIR /app
 # Copy the published files from the build image
 COPY --from=build /app/out .
 
-EXPOSE 80
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "OfficeAttendance.WebAPI.dll"]

@@ -1,14 +1,10 @@
-<h1 style="text-align: center">OfficeAttendance</h1>
-<div style="text-align: center">
-  <strong>Making it easy to catch up with your mates during hybrid times</strong>
-</div>
-<div style="text-align: center">
-  <em>With a Clean Architecture twist</em>
-</div>
+<div align="center">
 
-<br />
+# OfficeAttendance
 
-<div style="text-align: center">
+**Making it easy to catch up with your mates during hybrid times**
+
+*With a Clean Architecture twist*
 
 [![.NET Version](https://img.shields.io/badge/.NET-9-purple.svg)](https://shields.io/)
 [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://docker.com/)
@@ -16,46 +12,59 @@
 [![TDD](https://img.shields.io/badge/Following-TDD-yellow.svg)](https://shields.io/)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/nicolas-e1/)
 
+### [Clean Architecture](https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/) ♦ [C4 Diagrams](https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012)
+
+*Built with ❤︎ by [Nicolás Bracigliano](https://nicolasbracigliano.com/about)*
+
 </div>
 
-<div style="text-align: center">
-  <h3>
-   <a href="https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/">
-      Clean Architecture
-   </a>
-   <span> ♦ </span>
-    <a href="https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012">
-      C4 Diagrams
-    </a>
-    </h3>
-</div>
+## 📋 Table of Contents
 
-<div style="text-align: center">
-  <sub>Built with ❤︎ by
-    <a href="https://nicolasbracigliano.com/about">Nicolás Bracigliano</a>
-  </sub>
-</div>
+- [Summary](#-summary)
+- [Quick Start](#-quick-start)
+- [Philosophy](#-philosophy)
+- [Architecture](#-architecture)
+- [Architecture Documentation](#-architecture-documentation)
+- [Project Structure](#-project-structure)
+- [Setup](#-setup)
+- [Testing](#-testing)
+- [Usage](#-usage)
+- [Technologies Used](#-technologies-used)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-## Table of Contents
+---
 
-- [Summary](#summary)
-- [Philosophy](#philosophy)
-- [Architecture](#architecture)
-- [Architecture Documentation](#architecture-documentation)
-- [C4 Model Overview](#c4-model-overview)
-- [Visualizing the Diagrams](#visualizing-the-diagrams)
-- [Project Structure](#project-structure)
-- [Setup](#setup)
-- [Testing](#testing)
-- [Usage](#usage)
-
-
-## Summary
+## 📝 Summary
 
 The **Office Attendance** is a tool for announcing employee attendance in a hybrid office setting. This API allows you to track and record employee check-ins, generate attendance reports to have an idea when that person that you want to see in person will be going to the office.
+
 The project is built with a focus on Clean Architecture principles, ensuring separation of concerns, testability, and maintainability. It leverages .NET technologies and follows industry best practices such as Test-Driven Development (TDD).
 
-## Philosophy
+---
+
+## 🚀 Quick Start
+
+For those who want to get up and running quickly:
+
+```bash
+# Clone the repository
+git clone https://github.com/nicolas-E1/OfficeAttendance.git
+cd officeAttendance
+
+# Run with Docker (first time)
+make all
+
+# Or just start the containers if already set up
+make up
+
+# Access the API at http://localhost:5555
+# Swagger UI at http://localhost:5555/swagger/
+```
+
+---
+
+## 🧠 Philosophy
 
 This project is built on the foundations of Clean Architecture, Test-Driven Development (TDD), and a strong commitment to best practices in software development. Writing clean code and adhering to these principles not only ensures high-quality work but also makes life easier for your future self and colleagues.
 
@@ -65,19 +74,22 @@ This project is built on the foundations of Clean Architecture, Test-Driven Deve
 ### Clean Architecture
 
 Clean Architecture, as advocated by Robert C. Martin (Uncle Bob), emphasizes the importance of separating the various layers of a software system to improve its modularity and scalability. The core of the application (domain entities, use cases) is kept independent of external frameworks, UI, or databases. This approach allows the application to be more adaptable to changes and easier to test.
-If you want to learn more about Clean Architecture, check out my blog post where I cover this topic.
 
 > 💡
 > If you want to learn more about Clean Architecture, check out my **[blog post](https://nicolasbracigliano.com/bit-acora/clean-architecture-building-software-that-lasts/)** where I cover this topic.
-
 
 ### Test-Driven Development (TDD)
 
 TDD is a development methodology where tests are written before the code that fulfils the requirements. This ensures that the software design is guided by tests, resulting in higher code quality, fewer bugs, and a clearer understanding of the software's behaviour.
 
-## Architecture
+---
 
-<p style="text-align: center"><img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecture diagram" width="1058"></p>
+## 🏛️ Architecture
+
+<div align="center">
+  <img src="Docs/Assets/TheCleanArchitecture.png" alt="clean architecture diagram">
+</div>
+
 The project is structured according to Clean Architecture principles, dividing the codebase into distinct layers:
 
 - **Core Layer**: Contains the business logic and domain entities, which are agnostic of external systems.
@@ -87,7 +99,9 @@ The project is structured according to Clean Architecture principles, dividing t
 
 This separation ensures that each layer has a clear responsibility, making the system more maintainable and scalable.
 
-## Architecture Documentation
+---
+
+## 📊 Architecture Documentation
 
 The architecture of the **OfficeAttendance** system has been documented using the C4 model, which provides a clear and hierarchical view of the system from different levels of abstraction. This approach helps in understanding the overall structure and design of the system, from the high-level system context down to the individual components.
 
@@ -110,7 +124,9 @@ You can explore the C4 diagrams for the **OfficeAttendance** system via the foll
 
 - **C4 Diagrams**: [Office Attendance System C4 Diagrams](https://structurizr.com/share/94429/65e26406-99d3-4ae0-bd6b-72c567499012)
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 The **OfficeAttendance** solution is composed of five distinct projects, each serving a specific role within the overall architecture. This separation reinforces the principles of Clean Architecture by ensuring clear boundaries and preventing illegal dependencies between layers.
 
@@ -137,7 +153,9 @@ The separation of these projects enforces a strict adherence to Clean Architectu
 
 This structure ensures that there are no illegal interactions or dependencies, maintaining the integrity of the architecture and making the system more maintainable and testable.
 
-## Setup
+---
+
+## ⚙️ Setup
 
 ### Prerequisites
 
@@ -209,7 +227,9 @@ To run the application in a Docker container:
    make down
    ```
 
-## Testing
+---
+
+## 🧪 Testing
 
 ### Unit Tests
 
@@ -228,7 +248,9 @@ dotnet test
 
 While the current setup only includes unit tests, integration tests and contract testing will be added in future iterations to ensure that the application works seamlessly with external systems and meets the specified contracts.
 
-## Usage
+---
+
+## 🔍 Usage
 
 Once the container is up and running, you can start making API requests to manage employee attendance. The application provides several endpoints to interact with the system. Below are some examples of how to use the API:
 
@@ -236,7 +258,7 @@ Once the container is up and running, you can start making API requests to manag
 
 - **Retrieve attendance report for a particular day:**
     ```http
-    GET /attendance/reports/attendance/2024-05-25
+    GET /attendance/reports/day/2024-05-25
     ```
     This endpoint returns the attendance records for the specified date.
 
@@ -255,6 +277,48 @@ The application also supports **Swagger**, an interactive API documentation tool
 
 In Swagger, you can view detailed documentation for each endpoint, including the expected request parameters, response formats, and possible error codes. This makes it easier to understand how to interact with the API and integrate it with other systems.
 
-## Additional Notes
+---
 
-This project is a demonstration of clean coding principles and architectural patterns. It is not yet production-ready, and further enhancements and optimisations are required before deployment in a live environment.
+## 🛠️ Technologies Used
+
+<div align="center">
+
+[![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)](https://swagger.io/)
+[![Entity Framework](https://img.shields.io/badge/Entity_Framework-512BD4?style=for-the-badge&logo=.net&logoColor=white)](https://docs.microsoft.com/en-us/ef/)
+
+</div>
+
+---
+
+## 👥 Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature-name`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some feature'`)
+5. Push to the branch (`git push origin feature/your-feature-name`)
+6. Open a Pull Request
+
+Please ensure your code follows the project's coding standards and includes appropriate tests.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Thank you for checking out Office Attendance!**
+
+If you have any questions or feedback, please feel free to [open an issue](https://github.com/nicolas-E1/OfficeAttendance/issues).
+
+</div>
